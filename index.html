@@ -48,7 +48,7 @@ label{display:block;font-size:13px;color:#444;margin-bottom:5px;font-weight:500}
 .match-winner{margin-top:8px}
 .match-winner select{font-size:13px;padding:7px 10px}
 .match-player{margin-top:6px}
-.match-player input{font-size:13px;padding:7px 10px}
+.match-player input,.match-player select{font-size:13px;padding:7px 10px;width:100%}
 .group-title{font-size:15px;font-weight:700;color:#1a3a6b;padding:10px 0 6px;border-bottom:2px solid #1a3a6b;margin-bottom:10px}
 
 /* Nav buttons */
@@ -288,7 +288,11 @@ Object.keys(groups).sort().forEach(g => {
         </select>
       </div>
       <div class="match-player">
-        <input type="text" id="p_${m.num}" placeholder="أفضل لاعب في المباراة (اختياري)">
+        <select id="p_${m.num}">
+          <option value="">-- أفضل لاعب (اختياري) --</option>
+          ${Array.from({length:26},(_,i)=>`<option value="${i+1} - ${m.team1}">${i+1} - ${m.team1}</option>`).join('')}
+          ${Array.from({length:26},(_,i)=>`<option value="${i+1} - ${m.team2}">${i+1} - ${m.team2}</option>`).join('')}
+        </select>
       </div>`;
     mc.appendChild(d);
   });
