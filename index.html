@@ -112,10 +112,14 @@ label{display:block;font-size:13px;color:#444;margin-bottom:5px;font-weight:500}
 <div id="page1">
   <div class="card">
     <div class="card-title"><span class="icon">👤</span> معلوماتك</div>
-    <div class="card-desc">أدخل اسمك كما تريده يظهر في لوحة الترتيب</div>
+    <div class="card-desc">أدخل اسمك وإيميلك — ستصلك توقعاتك على الإيميل بعد التأكيد</div>
     <div class="form-row">
       <label>الاسم الكامل *</label>
       <input type="text" id="name" placeholder="أدخل اسمك..." />
+    </div>
+    <div class="form-row">
+      <label>البريد الإلكتروني *</label>
+      <input type="email" id="email" placeholder="example@email.com" dir="ltr" />
     </div>
   </div>
   <div class="nav-btns">
@@ -214,7 +218,9 @@ let currentPage = 1;
 function goTo(page) {
   if (page === 2) {
     const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
     if (!name) { alert('الرجاء إدخال اسمك أولاً'); return; }
+    if (!email || !email.includes('@')) { alert('الرجاء إدخال بريد إلكتروني صحيح'); return; }
   }
   if (page === 3 && selected.size !== 32) {
     alert('الرجاء اختيار بالضبط 32 منتخباً (حالياً: ' + selected.size + ')'); return;
@@ -324,8 +330,10 @@ function submitAll() {
     player: document.getElementById('p_'+m.num).value || ''
   }));
 
+  const email = document.getElementById('email').value.trim();
   const payload = {
     name,
+    email,
     teams: teamsList.join(', '),
     aw1: awards[0], aw2: awards[1], aw3: awards[2],
     aw4: awards[3], aw5: awards[4], aw6: awards[5],
