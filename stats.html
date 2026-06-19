@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>إحصائيات كأس العالم 2026</title>
+<style>
+  :root {
+    --green: #0a3d1f;
+    --green-mid: #1a6b3a;
+    --green-light: #2d9e58;
+    --gold: #c9a227;
+    --gold-light: #f0c84a;
+    --white: #f8f9f4;
+    --gray: #e8ede9;
+    --dark: #0d1f12;
+    --text: #1a2e1d;
+    --text-muted: #5a7a60;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    direction: rtl;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .hero {
+    background: linear-gradient(160deg, #0a3d1f 0%, #0d1f12 60%, #1a4a2e 100%);
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "⚽";
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.04;
+    top: -20px; left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--white);
+  }
+  .hero h1 span { color: var(--gold-light); }
+  .hero p {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 1.25rem 1rem;
+    background: var(--dark);
+    border-bottom: 1px solid #1e3b24;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 9px 20px;
+    border-radius: 20px;
+    border: 1.5px solid #2d5236;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    background: var(--green-mid);
+    border-color: var(--green-light);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ── Content ── */
+  .content { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── Cards ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .card {
+    background: linear-gradient(135deg, #132a18, #0d1f12);
+    border: 1px solid #2d5236;
+    border-radius: 12px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .card .num { font-size: 2.2rem; font-weight: 700; color: var(--gold-light); line-height: 1; }
+  .card .lbl { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .card.green .num { color: var(--green-light); }
+
+  /* ── Table ── */
+  .table-wrap { background: #0f2415; border: 1px solid #2d5236; border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: var(--green); }
+  thead th { padding: 11px 14px; text-align: right; font-weight: 600; color: var(--gold-light); font-size: 12px; }
+  tbody tr { border-bottom: 1px solid #1a3320; transition: background 0.15s; }
+  tbody tr:hover { background: #162b1c; }
+  tbody td { padding: 10px 14px; }
+  .rank-1 { color: var(--gold-light); font-weight: 700; }
+  .rank-2 { color: #c0c0c0; font-weight: 600; }
+  .rank-3 { color: #cd7f32; font-weight: 600; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge-w { background: #1a4a2e; color: var(--green-light); }
+  .badge-d { background: #2a2a1a; color: var(--gold); }
+  .badge-l { background: #3a1a1a; color: #e07070; }
+
+  /* ── Section title ── */
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2d5236;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Compare ── */
+  .compare-box {
+    background: #0f2415;
+    border: 1px solid #2d5236;
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .compare-selects {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+  select, input {
+    width: 100%;
+    padding: 10px 12px;
+    background: #132a18;
+    border: 1px solid #2d5236;
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 13px;
+    font-family: inherit;
+  }
+  label { font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 5px; }
+  .vs { text-align: center; font-size: 18px; font-weight: 700; color: var(--gold); padding-bottom: 2px; }
+  .btn {
+    width: 100%;
+    padding: 11px;
+    background: var(--green-mid);
+    border: none;
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--green-light); }
+  .compare-result { margin-top: 1.25rem; display: none; }
+  .compare-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .compare-val { text-align: center; font-size: 22px; font-weight: 700; }
+  .compare-val.winner { color: var(--green-light); }
+  .compare-row-label { text-align: center; font-size: 12px; color: var(--text-muted); }
+  .bar-wrap { display: flex; align-items: center; height: 8px; background: #1a3320; border-radius: 4px; overflow: hidden; }
+  .bar-l { height: 100%; background: var(--green-light); border-radius: 4px; }
+  .bar-r { height: 100%; background: var(--gold); border-radius: 4px; margin-right: auto; }
+
+  /* ── Participant stats ── */
+  .p-select-wrap { display: flex; gap: 10px; margin-bottom: 1rem; }
+  .p-select-wrap select { flex: 1; }
+  .p-select-wrap .btn { width: auto; padding: 10px 20px; }
+  .p-result { display: none; }
+  .p-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 1rem; }
+  .p-card { background: #132a18; border: 1px solid #2d5236; border-radius: 10px; padding: 1rem; text-align: center; }
+  .p-card .n { font-size: 1.8rem; font-weight: 700; color: var(--gold-light); }
+  .p-card .l { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .strength-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin: 6px 0 3px; }
+  .strength-fill { background: var(--green-light); height: 100%; }
+  .strength-empty { background: #1a3320; height: 100%; flex: 1; }
+
+  /* ── Loading ── */
+  .loading { text-align: center; padding: 3rem; color: var(--text-muted); }
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid #2d5236;
+    border-top-color: var(--green-light);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── API config ── */
+  .config-bar {
+    background: #0f2415;
+    border: 1px solid #2d5236;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 1rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .config-bar input { flex: 1; min-width: 200px; font-size: 12px; padding: 6px 10px; }
+  .config-bar .btn { width: auto; padding: 6px 14px; font-size: 12px; }
+
+  @media (max-width: 600px) {
+    .compare-selects { grid-template-columns: 1fr; }
+    .vs { display: none; }
+    .cards { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>إحصائيات <span>كأس العالم 2026</span></h1>
+  <p>بيانات محدّثة تلقائياً من football-data.org</p>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showSection('tournament')">🏆 البطولة</button>
+  <button class="tab" onclick="showSection('teams')">🌍 المنتخبات</button>
+  <button class="tab" onclick="showSection('compare')">⚔️ مقارنة منتخبين</button>
+  <button class="tab" onclick="showSection('scorers')">⚽ الهدافون</button>
+  <button class="tab" onclick="showSection('participant')">👤 إحصائيات مشارك</button>
+</div>
+
+<div class="content">
+
+  <!-- Config bar -->
+  <div class="config-bar" id="config-bar">
+    <span>رابط Apps Script:</span>
+    <input type="text" id="api-url" placeholder="https://script.google.com/macros/s/.../exec" value="">
+    <button class="btn" onclick="saveConfig()">حفظ وتحميل</button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loading" style="display:none">
+    <div class="spinner"></div>
+    <p>جاري تحميل البيانات...</p>
+  </div>
+
+  <!-- ── Section 1: Tournament ── -->
+  <div class="section active" id="section-tournament">
+    <div class="cards" id="tournament-cards">
+      <div class="card"><div class="num" id="stat-matches">—</div><div class="lbl">مباريات منتهية</div></div>
+      <div class="card"><div class="num" id="stat-goals">—</div><div class="lbl">إجمالي الأهداف</div></div>
+      <div class="card green"><div class="num" id="stat-avg">—</div><div class="lbl">معدل الأهداف / مباراة</div></div>
+      <div class="card"><div class="num" id="stat-draws">—</div><div class="lbl">مباريات تعادل</div></div>
+      <div class="card green"><div class="num" id="stat-high">—</div><div class="lbl">أعلى فوز</div></div>
+    </div>
+    <div class="section-title">📅 آخر 5 مباريات</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الفريق 1</th><th>النتيجة</th><th>الفريق 2</th><th>الدور</th></tr></thead>
+        <tbody id="recent-matches"></tbody>
+      </table>
+    </div>
+    <div class="section-title">📅 المباريات القادمة</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الفريق 1</th><th>الفريق 2</th><th>التاريخ</th><th>الدور</th></tr></thead>
+        <tbody id="upcoming-matches"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Section 2: Teams ── -->
+  <div class="section" id="section-teams">
+    <div class="section-title">🌍 ترتيب المنتخبات حسب الأداء</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>المنتخب</th><th>لعب</th><th>فوز</th><th>تعادل</th><th>خسارة</th><th>هداف</th><th>مستقبل</th><th>فارق</th><th>نسبة الفوز</th></tr></thead>
+        <tbody id="teams-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Section 3: Compare ── -->
+  <div class="section" id="section-compare">
+    <div class="section-title">⚔️ مقارنة بين منتخبين</div>
+    <div class="compare-box">
+      <div class="compare-selects">
+        <div>
+          <label>المنتخب الأول</label>
+          <select id="team1-select"><option value="">— اختر —</option></select>
+        </div>
+        <div class="vs">VS</div>
+        <div>
+          <label>المنتخب الثاني</label>
+          <select id="team2-select"><option value="">— اختر —</option></select>
+        </div>
+      </div>
+      <button class="btn" onclick="compareTeams()">قارن الآن</button>
+      <div class="compare-result" id="compare-result">
+        <div id="compare-t1-name" style="text-align:center;font-size:16px;font-weight:600;color:var(--green-light);padding:1rem 0 0.5rem"></div>
+        <div id="compare-rows"></div>
+        <div id="compare-t2-name" style="text-align:center;font-size:14px;color:var(--gold);padding:0.5rem 0"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Section 4: Scorers ── -->
+  <div class="section" id="section-scorers">
+    <div class="section-title">⚽ جدول الهدافين</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>اللاعب</th><th>المنتخب</th><th>أهداف</th><th>تمريرات</th></tr></thead>
+        <tbody id="scorers-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Section 5: Participant ── -->
+  <div class="section" id="section-participant">
+    <div class="section-title">👤 إحصائيات المشاركين</div>
+    <div class="p-select-wrap">
+      <select id="participant-select">
+        <option value="">— اختر مشاركاً —</option>
+      </select>
+      <button class="btn" onclick="loadParticipantStats()">عرض</button>
+    </div>
+    <div class="p-result" id="p-result">
+      <div class="p-cards" id="p-cards"></div>
+      <div class="section-title">تفاصيل النقاط</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>الفئة</th><th>النقاط</th><th>من أصل</th><th>نسبة الإصابة</th></tr></thead>
+          <tbody id="p-details"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+const APPS_SCRIPT_URL_KEY = 'wc2026_api_url';
+let API_URL = localStorage.getItem(APPS_SCRIPT_URL_KEY) || '';
+let matchesData = [], teamsStats = {}, scorersData = [], participantsData = {};
+
+document.getElementById('api-url').value = API_URL;
+
+function saveConfig() {
+  API_URL = document.getElementById('api-url').value.trim();
+  localStorage.setItem(APPS_SCRIPT_URL_KEY, API_URL);
+  loadAllData();
+}
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+async function loadAllData() {
+  if (!API_URL) return;
+  showLoading(true);
+  try {
+    await Promise.all([loadMatches(), loadScorers(), loadParticipants()]);
+  } catch(e) {
+    console.error(e);
+  }
+  showLoading(false);
+}
+
+function showLoading(show) {
+  document.getElementById('loading').style.display = show ? 'block' : 'none';
+}
+
+async function loadMatches() {
+  try {
+    const res = await fetch(API_URL + '?action=getMatches');
+    const data = await res.json();
+    matchesData = data.matches || [];
+    buildTournamentStats();
+    buildTeamsTable();
+    buildCompareSelects();
+  } catch(e) { console.error('Matches error:', e); }
+}
+
+async function loadScorers() {
+  try {
+    const res = await fetch(API_URL + '?action=getScorers');
+    const data = await res.json();
+    scorersData = data.scorers || [];
+    buildScorersTable();
+  } catch(e) { console.error('Scorers error:', e); }
+}
+
+async function loadParticipants() {
+  try {
+    const res = await fetch(API_URL + '?action=getParticipants');
+    const data = await res.json();
+    const names = data.names || [];
+    const sel = document.getElementById('participant-select');
+    sel.innerHTML = '<option value="">— اختر مشاركاً —</option>';
+    names.forEach(n => sel.add(new Option(n, n)));
+  } catch(e) { console.error('Participants error:', e); }
+}
+
+function buildTournamentStats() {
+  const finished = matchesData.filter(m => m.status === 'FINISHED');
+  const upcoming = matchesData.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED');
+  
+  let totalGoals = 0, draws = 0, highScore = 0, highMatch = '—';
+  finished.forEach(m => {
+    const hg = m.score?.fullTime?.home || 0;
+    const ag = m.score?.fullTime?.away || 0;
+    totalGoals += hg + ag;
+    if (hg === ag) draws++;
+    if (hg + ag > highScore) {
+      highScore = hg + ag;
+      highMatch = hg + '-' + ag;
+    }
+  });
+
+  document.getElementById('stat-matches').textContent = finished.length;
+  document.getElementById('stat-goals').textContent = totalGoals;
+  document.getElementById('stat-avg').textContent = finished.length > 0 ? (totalGoals/finished.length).toFixed(2) : '—';
+  document.getElementById('stat-draws').textContent = draws;
+  document.getElementById('stat-high').textContent = highMatch;
+
+  // Recent matches
+  const recent = finished.slice(-5).reverse();
+  document.getElementById('recent-matches').innerHTML = recent.map(m => {
+    const hg = m.score?.fullTime?.home;
+    const ag = m.score?.fullTime?.away;
+    return `<tr>
+      <td>${m.homeTeam?.name || '—'}</td>
+      <td style="text-align:center;font-weight:700;color:var(--gold-light)">${hg} - ${ag}</td>
+      <td>${m.awayTeam?.name || '—'}</td>
+      <td style="color:var(--text-muted);font-size:11px">${(m.stage||'').replace('_',' ')}</td>
+    </tr>`;
+  }).join('');
+
+  // Upcoming
+  const next = upcoming.slice(0, 5);
+  document.getElementById('upcoming-matches').innerHTML = next.length ? next.map(m => {
+    const d = new Date(m.utcDate).toLocaleDateString('ar-SA');
+    return `<tr>
+      <td>${m.homeTeam?.name || '—'}</td>
+      <td>${m.awayTeam?.name || '—'}</td>
+      <td style="color:var(--gold)">${d}</td>
+      <td style="color:var(--text-muted);font-size:11px">${(m.stage||'').replace('_',' ')}</td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--text-muted);padding:1.5rem">لا توجد مباريات قادمة بعد</td></tr>';
+}
+
+function buildTeamsTable() {
+  const finished = matchesData.filter(m => m.status === 'FINISHED');
+  teamsStats = {};
+  finished.forEach(m => {
+    const h = m.homeTeam?.name, a = m.awayTeam?.name;
+    const hg = m.score?.fullTime?.home, ag = m.score?.fullTime?.away;
+    if (!h || !a || hg === null || ag === null) return;
+    if (!teamsStats[h]) teamsStats[h] = {p:0,w:0,d:0,l:0,gf:0,ga:0};
+    if (!teamsStats[a]) teamsStats[a] = {p:0,w:0,d:0,l:0,gf:0,ga:0};
+    teamsStats[h].p++; teamsStats[a].p++;
+    teamsStats[h].gf += hg; teamsStats[h].ga += ag;
+    teamsStats[a].gf += ag; teamsStats[a].ga += hg;
+    if (hg > ag) { teamsStats[h].w++; teamsStats[a].l++; }
+    else if (ag > hg) { teamsStats[a].w++; teamsStats[h].l++; }
+    else { teamsStats[h].d++; teamsStats[a].d++; }
+  });
+
+  const rows = Object.entries(teamsStats).sort((a,b)=>b[1].w-a[1].w || (b[1].gf-b[1].ga)-(a[1].gf-a[1].ga));
+  document.getElementById('teams-table').innerHTML = rows.map(([name, s], i) => {
+    const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'';
+    const pct = s.p > 0 ? Math.round((s.w/s.p)*100) : 0;
+    const diff = s.gf - s.ga;
+    return `<tr>
+      <td class="${rankClass}">${i+1}</td>
+      <td style="font-weight:500">${name}</td>
+      <td>${s.p}</td>
+      <td><span class="badge badge-w">${s.w}</span></td>
+      <td><span class="badge badge-d">${s.d}</span></td>
+      <td><span class="badge badge-l">${s.l}</span></td>
+      <td style="color:var(--green-light)">${s.gf}</td>
+      <td style="color:#e07070">${s.ga}</td>
+      <td style="color:${diff>=0?'var(--green-light)':'#e07070'}">${diff>0?'+':''}${diff}</td>
+      <td style="color:var(--gold)">${pct}%</td>
+    </tr>`;
+  }).join('');
+}
+
+function buildCompareSelects() {
+  const teams = Object.keys(teamsStats).sort();
+  [document.getElementById('team1-select'), document.getElementById('team2-select')].forEach(sel => {
+    sel.innerHTML = '<option value="">— اختر —</option>';
+    teams.forEach(t => sel.add(new Option(t, t)));
+  });
+}
+
+function compareTeams() {
+  const t1 = document.getElementById('team1-select').value;
+  const t2 = document.getElementById('team2-select').value;
+  if (!t1 || !t2 || t1 === t2) { alert('اختر منتخبين مختلفين'); return; }
+  const s1 = teamsStats[t1], s2 = teamsStats[t2];
+  if (!s1 || !s2) { alert('لا توجد بيانات كافية لهذين المنتخبين'); return; }
+
+  document.getElementById('compare-t1-name').textContent = t1;
+  document.getElementById('compare-t2-name').textContent = t2;
+
+  const rows = [
+    ['مباريات لعب', s1.p, s2.p],
+    ['انتصارات', s1.w, s2.w],
+    ['تعادلات', s1.d, s2.d],
+    ['خسائر', s1.l, s2.l],
+    ['أهداف سجل', s1.gf, s2.gf],
+    ['أهداف استقبل', s1.ga, s2.ga],
+    ['فارق الأهداف', s1.gf-s1.ga, s2.gf-s2.ga],
+    ['نسبة الفوز %', s1.p>0?Math.round(s1.w/s1.p*100):0, s2.p>0?Math.round(s2.w/s2.p*100):0],
+  ];
+
+  document.getElementById('compare-rows').innerHTML = rows.map(([label, v1, v2]) => {
+    const max = Math.max(Math.abs(v1), Math.abs(v2), 1);
+    const pct1 = Math.min(Math.abs(v1)/max*50, 50);
+    const pct2 = Math.min(Math.abs(v2)/max*50, 50);
+    const w1 = v1 > v2 ? 'winner' : '';
+    const w2 = v2 > v1 ? 'winner' : '';
+    return `<div style="margin-bottom:10px">
+      <div style="text-align:center;font-size:11px;color:var(--text-muted);margin-bottom:4px">${label}</div>
+      <div class="compare-grid">
+        <div class="compare-val ${w1}">${v1}</div>
+        <div class="bar-wrap" style="flex:1;margin:0 8px">
+          <div class="bar-l" style="width:${pct1}%"></div>
+          <div class="bar-r" style="width:${pct2}%"></div>
+        </div>
+        <div class="compare-val ${w2}">${v2}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('compare-result').style.display = 'block';
+}
+
+function buildScorersTable() {
+  document.getElementById('scorers-table').innerHTML = scorersData.map((s, i) => {
+    const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'';
+    return `<tr>
+      <td class="${rankClass}">${i+1}</td>
+      <td style="font-weight:500">${s.player?.name || '—'}</td>
+      <td style="color:var(--text-muted)">${s.team?.name || '—'}</td>
+      <td style="color:var(--gold-light);font-weight:700;font-size:16px">${s.goals || 0}</td>
+      <td style="color:var(--text-muted)">${s.assists || 0}</td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:var(--text-muted)">لا توجد بيانات بعد</td></tr>';
+}
+
+async function loadParticipantStats() {
+  const name = document.getElementById('participant-select').value;
+  if (!name) return;
+  showLoading(true);
+  try {
+    const res = await fetch(`${API_URL}?action=compare&p1=${encodeURIComponent(name)}&p2=${encodeURIComponent(name)}`);
+    const data = await res.json();
+    if (data.error) { alert(data.error); return; }
+    const p = data.p1;
+
+    document.getElementById('p-cards').innerHTML = `
+      <div class="p-card"><div class="n">${p.total}</div><div class="l">إجمالي النقاط</div></div>
+      <div class="p-card"><div class="n">${p.matchPts}</div><div class="l">نقاط المباريات</div></div>
+      <div class="p-card"><div class="n">${p.qualPts}</div><div class="l">نقاط المتأهلين</div></div>
+      <div class="p-card"><div class="n">${p.awardPts}</div><div class="l">نقاط الجوائز</div></div>
+      <div class="p-card"><div class="n">${p.finalPts}</div><div class="l">نقاط المراكز</div></div>
+    `;
+
+    const details = [
+      ['نقاط المباريات', p.matchPts, 656],
+      ['نقاط المتأهلين', p.qualPts, 160],
+      ['نقاط الجوائز', p.awardPts, 300],
+      ['نقاط المراكز', p.finalPts, 200],
+    ];
+    document.getElementById('p-details').innerHTML = details.map(([label, pts, max]) => {
+      const pct = max > 0 ? Math.round(pts/max*100) : 0;
+      return `<tr>
+        <td>${label}</td>
+        <td style="color:var(--gold-light);font-weight:600">${pts}</td>
+        <td style="color:var(--text-muted)">${max}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="strength-bar" style="flex:1">
+              <div class="strength-fill" style="width:${pct}%"></div>
+              <div class="strength-empty"></div>
+            </div>
+            <span style="font-size:12px;color:var(--green-light);min-width:32px">${pct}%</span>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('p-result').style.display = 'block';
+  } catch(e) {
+    alert('تعذر تحميل البيانات');
+  }
+  showLoading(false);
+}
+
+// Load on start if URL saved
+if (API_URL) loadAllData();
+</script>
+</body>
+</html>
