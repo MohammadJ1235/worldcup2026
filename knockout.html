@@ -13,66 +13,47 @@
   --card:#132a18;--border:#2d5236;
 }
 body{font-family:'Segoe UI',Arial,sans-serif;background:var(--dark);color:var(--white);direction:rtl;min-height:100vh}
-
-/* Header */
 .hero{background:linear-gradient(160deg,#0a3d1f,#0d1f12);padding:2rem 1rem 1.5rem;text-align:center;border-bottom:2px solid var(--gold)}
 .hero h1{font-size:clamp(1.4rem,4vw,2.2rem);font-weight:700}
 .hero h1 span{color:var(--gold-light)}
 .hero p{font-size:13px;color:var(--muted);margin-top:6px}
-
-/* Progress */
-.progress-bar{display:flex;background:#0f2415;border-bottom:1px solid var(--border)}
-.step{flex:1;padding:12px 8px;text-align:center;font-size:12px;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.2s}
+.progress-bar{display:flex;background:#0f2415;border-bottom:1px solid var(--border);overflow-x:auto}
+.step{flex:1;min-width:80px;padding:12px 6px;text-align:center;font-size:11px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
 .step.active{color:var(--gold-light);border-bottom-color:var(--gold)}
 .step.done{color:var(--green-light);border-bottom-color:var(--green-light)}
-
-/* Pages */
-.page{display:none;max-width:700px;margin:0 auto;padding:1.25rem 1rem}
+.page{display:none;max-width:720px;margin:0 auto;padding:1.25rem 1rem}
 .page.active{display:block}
-
-/* Card */
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
 .card-title{font-size:15px;font-weight:600;color:var(--gold-light);margin-bottom:4px}
 .card-desc{font-size:12px;color:var(--muted);margin-bottom:1rem}
-
-/* Form */
 .form-row{margin-bottom:12px}
 .form-row label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
-input[type=text],input[type=email],select{
-  width:100%;padding:10px 12px;
-  background:#0f2415;border:1px solid var(--border);
-  border-radius:8px;color:var(--white);font-size:14px;font-family:inherit
+input[type=text],input[type=email],input[type=number],select{
+  width:100%;padding:10px 12px;background:#0f2415;border:1px solid var(--border);
+  border-radius:8px;color:var(--white);font-size:13px;font-family:inherit
 }
+input[type=number]{width:52px;text-align:center;padding:8px 4px;font-size:16px;font-weight:700}
 input:focus,select:focus{outline:none;border-color:var(--green-light)}
-
-/* Match card */
 .match-card{background:#0f2415;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
-.match-header{font-size:11px;color:var(--muted);margin-bottom:8px;text-align:center}
-.match-teams{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:8px}
-.team-name{font-size:13px;font-weight:500;text-align:center}
-.score-inputs{display:flex;gap:6px;align-items:center;justify-content:center}
-.score-inputs input{width:48px;text-align:center;padding:6px;font-size:16px;font-weight:700}
-.score-sep{font-size:18px;color:var(--muted)}
-.match-winner select{margin-top:6px}
-.match-player{margin-top:6px}
-
-/* Buttons */
+.match-num{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:4px;text-align:center}
+.match-from{font-size:10px;color:var(--muted);text-align:center;margin-bottom:8px}
+.match-row{display:grid;grid-template-columns:1fr 80px 1fr;gap:8px;align-items:center;margin-bottom:8px}
+.score-wrap{display:flex;gap:4px;align-items:center;justify-content:center}
+.score-sep{color:var(--muted);font-size:16px}
+.match-winner,.match-player{margin-top:6px}
+.stage-title{font-size:14px;font-weight:600;color:var(--gold-light);margin:1rem 0 0.5rem;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.auto-tag{font-size:10px;background:#1a3d24;border:1px solid var(--green-mid);border-radius:4px;padding:1px 6px;color:var(--green-light);margin-right:4px}
 .btn{width:100%;padding:12px;background:var(--green-mid);border:none;border-radius:8px;color:var(--white);font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
 .btn:hover{background:var(--green-light)}
-.btn-back{background:#1a3320;margin-bottom:8px}
-
-/* Stage title */
-.stage-title{font-size:14px;font-weight:600;color:var(--gold-light);margin:1rem 0 0.5rem;padding-bottom:6px;border-bottom:1px solid var(--border)}
-
-/* Success */
+.btn-back{background:#1a3320;margin-bottom:4px}
 .success-box{text-align:center;padding:2rem 1rem}
 .success-icon{font-size:60px;margin-bottom:1rem}
 .success-title{font-size:22px;font-weight:700;color:var(--green-light);margin-bottom:8px}
 .success-msg{font-size:14px;color:var(--muted);margin-bottom:1.5rem}
-
+.review-match{padding:6px 0;border-bottom:1px solid #1a3320;font-size:12px}
 @media(max-width:500px){
-  .step{font-size:10px;padding:10px 4px}
-  .match-teams{grid-template-columns:1fr auto 1fr}
+  .match-row{grid-template-columns:1fr 70px 1fr}
+  input[type=number]{width:44px;font-size:14px}
 }
 </style>
 </head>
@@ -80,7 +61,7 @@ input:focus,select:focus{outline:none;border-color:var(--green-light)}
 
 <div class="hero">
   <h1>توقعات <span>الأدوار الإقصائية</span></h1>
-  <p>كأس العالم 2026 — من دور الـ32 حتى النهائي</p>
+  <p>كأس العالم 2026 — من م73 حتى م104</p>
 </div>
 
 <div class="progress-bar">
@@ -92,79 +73,53 @@ input:focus,select:focus{outline:none;border-color:var(--green-light)}
   <div class="step" id="st6">6 تأكيد</div>
 </div>
 
-<!-- Page 1: Info -->
 <div class="page active" id="page1">
   <div class="card">
     <div class="card-title">معلوماتك</div>
-    <div class="card-desc">أدخل اسمك وإيميلك — سيصلك ملخص توقعاتك</div>
-    <div class="form-row">
-      <label>الاسم *</label>
-      <input type="text" id="name" placeholder="اسمك كما في الفورم الأول">
-    </div>
-    <div class="form-row">
-      <label>البريد الإلكتروني *</label>
-      <input type="email" id="email" placeholder="example@email.com" dir="ltr">
-    </div>
+    <div class="card-desc">أدخل اسمك وإيميلك</div>
+    <div class="form-row"><label>الاسم *</label><input type="text" id="name" placeholder="اسمك كما في الفورم الأول"></div>
+    <div class="form-row"><label>البريد الإلكتروني *</label><input type="email" id="email" placeholder="example@email.com" dir="ltr"></div>
   </div>
   <button class="btn" onclick="goTo(2)">التالي ←</button>
 </div>
 
-<!-- Page 2: Round of 32 -->
 <div class="page" id="page2">
-  <div class="card">
-    <div class="card-title">دور الـ32</div>
-    <div class="card-desc">توقع نتيجة كل مباراة — الفريقان سيُعلَنان لاحقاً</div>
-  </div>
+  <div class="card"><div class="card-title">دور الـ32 (م73 - م88)</div><div class="card-desc">اختر المنتخبين — الفائز ينتقل تلقائياً للدور التالي</div></div>
   <div id="r32-matches"></div>
   <button class="btn btn-back" onclick="goTo(1)">→ رجوع</button>
   <button class="btn" onclick="goTo(3)">التالي ←</button>
 </div>
 
-<!-- Page 3: Round of 16 -->
 <div class="page" id="page3">
-  <div class="card">
-    <div class="card-title">دور الـ16</div>
-    <div class="card-desc">توقع نتيجة كل مباراة</div>
-  </div>
+  <div class="card"><div class="card-title">دور الـ16 (م89 - م96)</div><div class="card-desc">يتعبأ تلقائياً من فائزي دور الـ32</div></div>
   <div id="r16-matches"></div>
   <button class="btn btn-back" onclick="goTo(2)">→ رجوع</button>
   <button class="btn" onclick="goTo(4)">التالي ←</button>
 </div>
 
-<!-- Page 4: Quarter Finals -->
 <div class="page" id="page4">
-  <div class="card">
-    <div class="card-title">ربع النهائي</div>
-    <div class="card-desc">توقع نتيجة كل مباراة</div>
-  </div>
+  <div class="card"><div class="card-title">ربع النهائي (م97 - م100)</div><div class="card-desc">يتعبأ تلقائياً من فائزي دور الـ16</div></div>
   <div id="qf-matches"></div>
   <button class="btn btn-back" onclick="goTo(3)">→ رجوع</button>
   <button class="btn" onclick="goTo(5)">التالي ←</button>
 </div>
 
-<!-- Page 5: Semi + Final -->
 <div class="page" id="page5">
-  <div class="card">
-    <div class="card-title">نصف النهائي والنهائي</div>
-    <div class="card-desc">توقع آخر المراحل بما فيها مباراة الثالث والرابع</div>
-  </div>
+  <div class="card"><div class="card-title">نصف النهائي والنهائي (م101 - م104)</div><div class="card-desc">يتعبأ تلقائياً من فائزي ربع النهائي</div></div>
   <div id="sf-matches"></div>
   <button class="btn btn-back" onclick="goTo(4)">→ رجوع</button>
   <button class="btn" onclick="goTo(6)">مراجعة التوقعات ←</button>
 </div>
 
-<!-- Page 6: Review & Submit -->
 <div class="page" id="page6">
   <div class="card">
     <div class="card-title">مراجعة وتأكيد</div>
-    <div class="card-desc">تأكد من توقعاتك قبل الإرسال</div>
     <div id="review-content"></div>
   </div>
   <button class="btn btn-back" onclick="goTo(5)">→ تعديل</button>
-  <button class="btn" id="submit-btn" onclick="submitAll()">✅ تأكيد وإرسال التوقعات</button>
+  <button class="btn" id="submit-btn" onclick="submitAll()">✅ تأكيد وإرسال</button>
 </div>
 
-<!-- Page 7: Success -->
 <div class="page" id="page7">
   <div class="success-box">
     <div class="success-icon">🏆</div>
@@ -176,220 +131,245 @@ input:focus,select:focus{outline:none;border-color:var(--green-light)}
 
 <script>
 const APPS_URL = "APPS_SCRIPT_KNOCKOUT_URL";
-
-// Match structure for knockout rounds
 const TEAMS = ["أستراليا", "ألمانيا", "أمريكا", "أوروغواي", "أوزبكستان", "إسبانيا", "إنجلترا", "إيران", "اسكتلندا", "الأرجنتين", "الأردن", "الإكوادور", "البرازيل", "البرتغال", "البوسنة والهرسك", "التشيك", "الجزائر", "الرأس الأخضر", "السعودية", "السنغال", "السويد", "العراق", "الكونغو الديمقراطية", "المغرب", "المكسيك", "النرويج", "النمسا", "اليابان", "باراغواي", "بلجيكا", "بنما", "تركيا", "تونس", "جنوب أفريقيا", "ساحل العاج", "سويسرا", "غانا", "فرنسا", "قطر", "كرواتيا", "كندا", "كوراساو", "كوريا الجنوبية", "كولومبيا", "مصر", "نيوزيلندا", "هايتي", "هولندا"];
 const SQUAD = {"المكسيك": ["Carlos Acevedo", "Guillermo Ochoa", "Raúl Rangel", "Jesús Gallardo", "Israel Reyes", "César Montes", "Jorge Sánchez", "Johan Vásquez", "Mateo Chávez", "Gilberto Mora", "Edson Álvarez", "Orbelín Pineda", "Luis Romo", "Brian Gutiérrez", "Obed Vargas", "César Huerta", "Luis Chávez", "Erik Lira", "Álvaro Fidalgo", "Roberto Alvarado", "Armando González", "Raúl Jiménez", "Julián Quiñones", "Santiago Giménez", "Guillermo Martínez", "Alexis Vega"], "جنوب أفريقيا": ["Ronwen Williams", "Ricardo Goss", "Sipho Chaine", "Khuliso Mudau", "Aubrey Modiba", "Khulumani Ndamane", "Olwethu Makhanya", "Bradley Cross", "Thabang Matuludi", "Nkosinathi Sibisi", "Kamogelo Sebelebele", "Ime Okon", "Samukele Kabini", "Mbekezeli Mbokazi", "Teboho Mokoena", "Jayden Adams", "Thalente Mbatha", "Sphephelo Sithole", "Oswin Appollis", "Tshepang Moremi", "Evidence Makgopa", "Relebohile Mofokeng", "Iqraam Rayners", "Themba Zwane", "Thapelo Maseko"], "كوريا الجنوبية": ["Jo Hyeon-woo", "Kim Seung-gyu", "Song Bum-keun", "Kim Min-jae", "Cho Wi-je", "Lee Han-beom", "Kim Tae-hyeon", "Park Jin-seob", "Lee Ki-hyuk", "Lee Tae-seok", "Seol Young-woo", "Jens Castrop", "Kim Moon-hwan", "Yang Hyun-jun", "Paik Seung-ho", "Hwang In-beom", "Kim Jin-gyu", "Bae Jun-ho", "Eom Ji-sung", "Hwang Hee-chan", "Lee Dong-gyeong", "Lee Jae-sung", "Lee Kang-in", "Oh Hyeon-gyu", "Son Heung-min", "Cho Gue-sung"], "التشيك": ["Lukáš Horníček", "Matěj Kovář", "Jindřich Staněk", "Vladimír Coufal", "David Douděra", "Tomáš Holeš", "Robin Hranáč", "Štěpán Chaloupek", "David Jurásek", "Ladislav Krejčí", "Jaroslav Zelený", "David Zima", "Lukáš Červ", "Vladimír Darida", "Lukáš Provod", "Michal Sadílek", "Hugo Sochůrek", "Alexandr Sojka", "Tomáš Souček", "Pavel Šulc", "Denis Višinský", "Adam Hložek", "Tomáš Chorý", "Mojmír Chytil", "Jan Kuchta", "Patrik Schick"], "كندا": ["Dayne St. Clair", "Maxime Crépeau", "Owen Goodman", "Alistair Johnston", "Derek Cornelius", "Richie Laryea", "Niko Sigur", "Joel Waterman", "Luc de Fougerolles", "Moïse Bombito", "Alphonso Davies", "Alfie Jones", "Stephen Eustáquio", "Ismaël Koné", "Tajon Buchanan", "Mathieu Choinière", "Ali Ahmed", "Nathan Saliba", "Liam Millar", "Jacob Shaffelburg", "Jonathan Osorio", "Jonathan David", "Cyle Larin", "Tani Oluwaseyi", "Promise David"], "البوسنة والهرسك": ["Nikola Vasilj", "Martin Zlomislić", "Osman Hadžikić", "Sead Kolašinac", "Amar Dedić", "Nihad Mujakić", "Nikola Katić", "Tarik Muharemović", "Stjepan Radeljić", "Dennis Hadžikadunić", "Nidal Čelik", "Amir Hadžiahmetović", "Ivan Šunjić", "Ivan Bašić", "Dženis Burnić", "Ermin Mahmić", "Benjamin Tahirović", "Amar Memić", "Armin Gigović", "Kerim Alajbegović", "Esmir Bajraktarević", "Ermedin Demirović", "Jovo Lukić", "Samed Baždar", "Haris Tabaković", "Edin Džeko"], "قطر": ["Mahmud Abunada", "Pedro Miguel", "Lucas Mendes", "Issa Laye", "Jassem Gaber", "Abdulaziz Hatem", "Ahmed Alaaeldin", "Edmilson Junior", "Mohammed Muntari", "Hassan Al-Haydos", "Akram Afif", "Karim Boudiaf", "Ayoub Al-Oui", "Homam Ahmed", "Yusuf Abdurisag", "Boualem Khoukhi", "Ahmed Al-Ganehi", "Sultan Al-Brake", "Almoez Ali", "Ahmed Fathy", "Salah Zakaria", "Meshaal Barsham", "Assim Madibo", "Tahsin Jamshid", "Al-Hashmi Al-Hussain", "Mohamed Al-Mannai"], "سويسرا": ["Gregor Kobel", "Miro Muheim", "Silvan Widmer", "Nico Elvedi", "Manuel Akanji", "Denis Zakaria", "Breel Embolo", "Remo Freuler", "Johan Manzambi", "Granit Xhaka", "Dan Ndoye", "Yvon Mvogo", "Ricardo Rodriguez", "Ardon Jashari", "Djibril Sow", "Christian Fassnacht", "Rubén Vargas", "Eray Cömert", "Noah Okafor", "Michel Aebischer", "Marvin Keller", "Fabian Rieder", "Zeki Amdouni", "Aurèle Amenda", "Luca Jaquez", "Cedric Itten"], "البرازيل": ["Alisson", "Wesley", "Gabriel Magalhães", "Marquinhos", "Casemiro", "Alex Sandro", "Vinícius Júnior", "Bruno Guimarães", "Matheus Cunha", "Neymar", "Raphinha", "Weverton", "Danilo Luiz", "Bremer", "Léo Pereira", "Douglas Santos", "Fabinho", "Danilo Santos", "Endrick", "Lucas Paquetá", "Luiz Henrique", "Gabriel Martinelli", "Ederson", "Roger Ibañez", "Igor Thiago", "Rayan"], "المغرب": ["Yassine Bounou", "Munir Mohamedi", "Ahmed Reda Tagnaouti", "Achraf Hakimi", "Nayef Aguerd", "Noussair Mazraoui", "Youssef Belammari", "Anass Salah-Eddine", "Chadi Riad", "Issa Diop", "Zakaria El Ouahdi", "Redouane Halhal", "Sofyan Amrabat", "Azzedine Ounahi", "Bilal El Khannouss", "Ismael Saibari", "Neil El Aynaoui", "Samir El Mourabet", "Ayyoub Bouaddi", "Ayoub El Kaabi", "Soufiane Rahimi", "Abde Ezzalzouli", "Brahim Díaz", "Chemsdine Talbi", "Gessime Yassine", "Ayoube Amaimouni"], "هايتي": ["Johny Placide", "Alexandre Pierre", "Josué Duverger", "Ricardo Adé", "Carlens Arcus", "Martin Expérience", "Jean-Kévin Duverne", "Duke Lacroix", "Wilguens Paugain", "Hannes Delcroix", "Keeto Thermoncy", "Leverton Pierre", "Danley Jean Jacques", "Carl Sainté", "Jean-Ricner Bellegarde", "Woodensky Pierre", "Dominique Simon", "Duckens Nazon", "Frantzdy Pierrot", "Derrick Etienne Jr.", "Louicius Deedson", "Ruben Providence", "Josué Casimir", "Yassin Fortuné", "Wilson Isidor", "Lenny Joseph"], "اسكتلندا": ["Craig Gordon", "Angus Gunn", "Liam Kelly", "Andy Robertson", "Grant Hanley", "Kieran Tierney", "Scott McKenna", "Jack Hendry", "Nathan Patterson", "Anthony Ralston", "John Souttar", "Aaron Hickey", "Dominic Hyam", "John McGinn", "Scott McTominay", "Ryan Christie", "Kenny McLean", "Lewis Ferguson", "Ben Gannon-Doak", "Findlay Curtis", "Tyler Fletcher", "Lyndon Dykes", "Ché Adams", "Lawrence Shankland", "George Hirst", "Ross Stewart"], "أمريكا": ["Matt Turner", "Sergiño Dest", "Chris Richards", "Tyler Adams", "Antonee Robinson", "Auston Trusty", "Giovanni Reyna", "Weston McKennie", "Ricardo Pepi", "Christian Pulisic", "Brenden Aaronson", "Miles Robinson", "Tim Ream", "Sebastian Berhalter", "Cristian Roldan", "Alex Freeman", "Malik Tillman", "Maximilian Arfsten", "Haji Wright", "Folarin Balogun", "Timothy Weah", "Mark McKenzie", "Joe Scally", "Matt Freese", "Chris Brady", "Alejandro Zendejas"], "باراغواي": ["Gatito Fernández", "Orlando Gill", "Gastón Olveira", "Gustavo Gómez", "Júnior Alonso", "Fabián Balbuena", "Omar Alderete", "Juan José Cáceres", "Gustavo Velázquez", "José Canale", "Alexandro Maidana", "Miguel Almirón", "Kaku", "Andrés Cubas", "Ramón Sosa", "Diego Gómez", "Damián Bobadilla", "Braian Ojeda", "Matías Galarza", "Maurício", "Antonio Sanabria", "Julio Enciso", "Gabriel Ávalos", "Álex Arce", "Isidro Pitta", "Gustavo Caballero"], "أستراليا": ["Mathew Ryan", "Miloš Degenek", "Alessandro Circati", "Jacob Italiano", "Jordan Bos", "Jason Geria", "Mathew Leckie", "Connor Metcalfe", "Mohamed Touré", "Ajdin Hrustic", "Awer Mabil", "Paul Izzo", "Aiden O'Neill", "Cammy Devlin", "Kai Trewin", "Aziz Behich", "Nestory Irankunda", "Patrick Beach", "Harry Souttar", "Cristian Volpato", "Cameron Burgess", "Jackson Irvine", "Nishan Velupillay", "Paul Okon-Engstler", "Lucas Herrington", "Tete Yengi"], "تركيا": ["Uğurcan Çakır", "Mert Günok", "Altay Bayındır", "Merih Demiral", "Zeki Çelik", "Çağlar Söyüncü", "Mert Müldür", "Ferdi Kadıoğlu", "Ozan Kabak", "Abdülkerim Bardakcı", "Eren Elmalı", "Samet Akaydin", "Hakan Çalhanoğlu", "Kaan Ayhan", "Orkun Kökçü", "İsmail Yüksek", "Salih Özcan", "Kerem Aktürkoğlu", "Barış Alper Yılmaz", "Can Uzun", "Deniz Gül", "İrfan Can Kahveci", "Kenan Yıldız", "Arda Güler", "Yunus Akgün", "Oğuz Aydın"], "ألمانيا": ["Manuel Neuer", "Oliver Baumann", "Alexander Nübel", "Antonio Rüdiger", "Joshua Kimmich", "Jonathan Tah", "Nico Schlotterbeck", "Waldemar Anton", "David Raum", "Malick Thiaw", "Nathaniel Brown", "Florian Wirtz", "Jamal Musiala", "Leon Goretzka", "Aleksandar Pavlović", "Pascal Groß", "Angelo Stiller", "Felix Nmecha", "Nadiem Amiri", "Kai Havertz", "Leroy Sané", "Deniz Undav", "Jamie Leweling", "Maximilian Beier", "Nick Woltemade", "Lennart Karl"], "كوراساو": ["Eloy Room", "Tyrick Bodak", "Trevor Doornbusch", "Riechedly Bazoer", "Joshua Brenet", "Roshon van Eijma", "Sherel Floranus", "Deveron Fonville", "Juriën Gaari", "Armando Obispo", "Shurandy Sambo", "Juninho Bacuna", "Leandro Bacuna", "Livano Comenencia", "Kevin Felida", "Ar'jany Martha", "Tyrese Noslin", "Godfried Roemeratoe", "Jeremy Antonisse", "Tahith Chong", "Kenji Gorré", "Sontje Hansen", "Gervane Kastaneer", "Brandley Kuwas", "Jürgen Locadia", "Jearl Margaritha"], "ساحل العاج": ["Yahia Fofana", "Mohamed Koné", "Alban Lafont", "Emmanuel Agbadou", "Ousmane Diomande", "Guéla Doué", "Ghislain Konan", "Odilon Kossounou", "Evan Ndicka", "Wilfried Singo", "Christopher Opéri", "Seko Fofana", "Parfait Guiagon", "Franck Kessié", "Christ Inao Oulaï", "Ibrahim Sangaré", "Jean Michaël Seri", "Simon Adingra", "Ange-Yoan Bonny", "Amad Diallo", "Oumar Diakité", "Yan Diomande", "Evann Guessand", "Nicolas Pépé", "Bazoumana Touré", "Elye Wahi"], "الإكوادور": ["Hernán Galíndez", "Moisés Ramírez", "Gonzalo Valle", "Willian Pacho", "Piero Hincapié", "Joel Ordóñez", "Félix Torres", "Pervis Estupiñán", "Yaimar Medina", "Ángelo Preciado", "Jackson Porozo", "Alan Minda", "Moisés Caicedo", "Jordy Alcívar", "Denil Castillo", "John Yeboah", "Alan Franco", "Pedro Vite", "Kendry Páez", "Nilson Angulo", "Gonzalo Plata", "Kevin Rodríguez", "Anthony Valencia", "Enner Valencia", "Jordy Caicedo", "Jeremy Arévalo"], "هولندا": ["Bart Verbruggen", "Mark Flekken", "Robin Roefs", "Virgil van Dijk", "Denzel Dumfries", "Nathan Aké", "Jurriën Timber", "Micky van de Ven", "Mats Wieffer", "Jan Paul van Hecke", "Jorrel Hato", "Frenkie de Jong", "Marten de Roon", "Tijjani Reijnders", "Teun Koopmeiners", "Ryan Gravenberch", "Justin Kluivert", "Quinten Timber", "Guus Til", "Memphis Depay", "Wout Weghorst", "Donyell Malen", "Cody Gakpo", "Noa Lang", "Brian Brobbey", "Crysencio Summerville"], "اليابان": ["Zion Suzuki", "Yukinari Sugawara", "Shōgo Taniguchi", "Kō Itakura", "Yūto Nagatomo", "Wataru Endo", "Ao Tanaka", "Takefusa Kubo", "Keisuke Gotō", "Ritsu Dōan", "Daizen Maeda", "Keisuke Ōsako", "Keito Nakamura", "Junya Itō", "Daichi Kamada", "Tsuyoshi Watanabe", "Yuito Suzuki", "Ayase Ueda", "Kōki Ogawa", "Ayumu Seko", "Hiroki Itō", "Takehiro Tomiyasu", "Tomoki Hayakawa", "Kaishū Sano", "Junnosuke Suzuki", "Kento Shiogai"], "السويد": ["Jacob Widell Zetterström", "Gustaf Lagerbielke", "Victor Lindelöf", "Isak Hien", "Gabriel Gudmundsson", "Herman Johansson", "Lucas Bergvall", "Daniel Svensson", "Alexander Isak", "Benjamin Nygren", "Anthony Elanga", "Viktor Johansson", "Ken Sema", "Hjalmar Ekdal", "Carl Starfelt", "Jesper Karlström", "Viktor Gyökeres", "Yasin Ayari", "Mattias Svanberg", "Eric Smith", "Alexander Bernhardsson", "Besfort Zeneli", "Kristoffer Nordfeldt", "Elliot Stroud", "Gustaf Nilsson", "Taha Ali"], "تونس": ["Aymen Dahmen", "Sabri Ben Hessen", "Mouhib Chamakh", "Montassar Talbi", "Dylan Bronn", "Ali Abdi", "Yan Valery", "Mohamed Amine Ben Hamida", "Moutaz Neffati", "Omar Rekik", "Adem Arous", "Raed Chikhaoui", "Ellyes Skhiri", "Hannibal Mejbri", "Anis Ben Slimane", "Mortadha Ben Ouanes", "Ismaël Gharbi", "Hadj Mahmoud", "Rani Khedira", "Elias Achouri", "Firas Chaouat", "Hazem Mastouri", "Elias Saad", "Sebastian Tounekti", "Khalil Ayari", "Rayan Elloumi"], "بلجيكا": ["Thibaut Courtois", "Senne Lammens", "Mike Penders", "Thomas Meunier", "Timothy Castagne", "Arthur Theate", "Zeno Debast", "Maxim De Cuyper", "Brandon Mechele", "Koni De Winter", "Joaquin Seys", "Nathan Ngoy", "Axel Witsel", "Kevin De Bruyne", "Youri Tielemans", "Hans Vanaken", "Amadou Onana", "Nicolas Raskin", "Romelu Lukaku", "Leandro Trossard", "Jérémy Doku", "Dodi Lukébakio", "Charles De Ketelaere", "Alexis Saelemaekers", "Diego Moreira", "Matias Fernandez-Pardo"], "مصر": ["Mohamed El Shenawy", "Mostafa Shobeir", "Mohamed Alaa", "El Mahdy Soliman", "Hamdy Fathy", "Ramy Rabia", "Mohamed Hany", "Ahmed Fatouh", "Mohamed Abdelmonem", "Yasser Ibrahim", "Hossam Abdelmaguid", "Karim Hafez", "Tarek Alaa", "Marwan Attia", "Emam Ashour", "Mohanad Lasheen", "Mahmoud Saber", "Nabil Emad", "Mostafa Ziko", "Mohamed Salah", "Trézéguet", "Zizo", "Omar Marmoush", "Ibrahim Adel", "Haissem Hassan", "Hamza Abdelkarim"], "إيران": ["Alireza Beiranvand", "Payam Niazmand", "Hossein Hosseini", "Ehsan Hajsafi", "Milad Mohammadi", "Ramin Rezaeian", "Hossein Kanaanizadegan", "Shojae Khalilzadeh", "Saleh Hardani", "Ali Nemati", "Danial Eiri", "Alireza Jahanbakhsh", "Saeid Ezatolahi", "Saman Ghoddos", "Mehdi Torabi", "Rouzbeh Cheshmi", "Mohammad Mohebi", "Mehdi Ghayedi", "Mohammad Ghorbani", "Aria Yousefi", "Amirmohammad Razzaghinia", "Mehdi Taremi", "Shahriyar Moghanlou", "Amirhossein Hosseinzadeh", "Ali Alipour", "Dennis Eckert"], "نيوزيلندا": ["Max Crocombe", "Alex Paulsen", "Michael Woud", "Tim Payne", "Francis de Vries", "Tyler Bindon", "Michael Boxall", "Liberato Cacace", "Nando Pijnaker", "Finn Surman", "Callan Elliot", "Tommy Smith", "Joe Bell", "Matthew Garbett", "Marko Stamenić", "Sarpreet Singh", "Alex Rufer", "Ryan Thomas", "Chris Wood", "Elijah Just", "Kosta Barbarouses", "Ben Waine", "Ben Old", "Callum McCowatt", "Jesse Randall", "Lachlan Bayliss"], "إسبانيا": ["David Raya", "Marc Pubill", "Álex Grimaldo", "Eric García", "Marcos Llorente", "Mikel Merino", "Ferran Torres", "Fabián Ruiz", "Gavi", "Dani Olmo", "Yéremy Pino", "Pedro Porro", "Joan Garcia", "Aymeric Laporte", "Álex Baena", "Rodri", "Nico Williams", "Martín Zubimendi", "Lamine Yamal", "Pedri", "Mikel Oyarzabal", "Pau Cubarsí", "Unai Simón", "Marc Cucurella", "Víctor Muñoz", "Borja Iglesias"], "أوروغواي": ["Fernando Muslera", "Sergio Rochet", "Santiago Mele", "José María Giménez", "Matías Viña", "Mathías Olivera", "Guillermo Varela", "Ronald Araújo", "Sebastián Cáceres", "Joaquín Piquerez", "Santiago Bueno", "Rodrigo Bentancur", "Federico Valverde", "Giorgian de Arrascaeta", "Facundo Pellistri", "Manuel Ugarte", "Nicolás de la Cruz", "Brian Rodríguez", "Maximiliano Araújo", "Agustín Canobbio", "Emiliano Martínez", "Rodrigo Zalazar", "Juan Manuel Sanabria", "Darwin Núñez", "Federico Viñas", "Rodrigo Aguirre"], "السعودية": ["Mohammed Al-Owais", "Nawaf Al-Aqidi", "Ahmed Al-Kassar", "Saud Abdulhamid", "Hassan Al-Tambakti", "Abdulelah Al-Amri", "Nawaf Boushal", "Ali Lajami", "Ali Majrashi", "Hassan Kadesh", "Moteb Al-Harbi", "Jehad Thakri", "Mohammed Abu Al-Shamat", "Salem Al-Dawsari", "Mohamed Kanno", "Nasser Al-Dawsari", "Abdullah Al-Khaibari", "Musab Al-Juwayr", "Ayman Yahya", "Ziyad Al-Johani", "Sultan Mandash", "Alaa Al-Hejji", "Firas Al-Buraikan", "Saleh Al-Shehri", "Abdullah Al-Hamdan", "Khalid Al-Ghannam"], "الرأس الأخضر": ["Vozinha", "Márcio Rosa", "CJ dos Santos", "Stopira", "Roberto Lopes", "João Paulo", "Diney", "Logan Costa", "Steven Moreira", "Wagner Pina", "Sidny Lopes Cabral", "Kelvin Pires", "Jamiro Monteiro", "Kevin Pina", "Deroy Duarte", "Telmo Arcanjo", "Laros Duarte", "Yannick Semedo", "Ryan Mendes", "Garry Rodrigues", "Willy Semedo", "Jovane Cabral", "Gilson Benchimol", "Dailon Livramento", "Hélio Varela", "Nuno da Costa"], "فرنسا": ["Brice Samba", "Malo Gusto", "Lucas Digne", "Dayot Upamecano", "Jules Koundé", "Manu Koné", "Ousmane Dembélé", "Aurélien Tchouaméni", "Marcus Thuram", "Kylian Mbappé", "Michael Olise", "Bradley Barcola", "N'Golo Kanté", "Adrien Rabiot", "Ibrahima Konaté", "Mike Maignan", "William Saliba", "Warren Zaïre-Emery", "Théo Hernandez", "Désiré Doué", "Lucas Hernandez", "Jean-Philippe Mateta", "Robin Risser", "Rayan Cherki", "Maghnes Akliouche", "Maxence Lacroix"], "السنغال": ["Édouard Mendy", "Mory Diaw", "Yehvann Diouf", "Kalidou Koulibaly", "Krépin Diatta", "Moussa Niakhaté", "Ismail Jakobs", "Abdoulaye Seck", "El Hadji Malick Diouf", "Mamadou Sarr", "Antoine Mendy", "Idrissa Gueye", "Pape Gueye", "Pape Matar Sarr", "Lamine Camara", "Pathé Ciss", "Habib Diarra", "Bara Sapoko Ndiaye", "Sadio Mané", "Ismaïla Sarr", "Iliman Ndiaye", "Nicolas Jackson", "Bamba Dieng", "Cherif Ndiaye", "Ibrahim Mbaye", "Assane Diao"], "النرويج": ["Ørjan Nyland", "Morten Thorsby", "Kristoffer Ajer", "Leo Østigård", "David Møller Wolfe", "Patrick Berg", "Alexander Sørloth", "Sander Berge", "Erling Haaland", "Martin Ødegaard", "Jørgen Strand Larsen", "Sander Tangvik", "Egil Selvik", "Fredrik Aursnes", "Fredrik André Bjørkan", "Marcus Holmgren Pedersen", "Torbjørn Heggem", "Kristian Thorstvedt", "Thelo Aasgaard", "Antonio Nusa", "Andreas Schjelderup", "Oscar Bobb", "Jens Petter Hauge", "Sondre Langås", "Henrik Falchener", "Julian Ryerson"], "العراق": ["Jalal Hassan", "Fahad Talib", "Ahmed Basil", "Rebin Sulaka", "Manaf Younis", "Merchas Doski", "Zaid Tahseen", "Frans Putros", "Hussein Ali", "Ahmed Yahya", "Mustafa Saadoon", "Akam Hashim", "Ibrahim Bayesh", "Amir Al-Ammari", "Ali Jasim", "Youssef Amyn", "Zidane Iqbal", "Marko Farji", "Kevin Yakob", "Aimar Sher", "Zaid Ismail", "Ahmed Qasem", "Aymen Hussein", "Mohanad Ali", "Ali Al-Hamadi", "Ali Yousif"], "الأرجنتين": ["Juan Musso", "Leonardo Balerdi", "Nicolás Tagliafico", "Gonzalo Montiel", "Leandro Paredes", "Lisandro Martínez", "Rodrigo De Paul", "Valentín Barco", "Julián Alvarez", "Lionel Messi", "Giovani Lo Celso", "Gerónimo Rulli", "Cristian Romero", "Exequiel Palacios", "Nicolás González", "Thiago Almada", "Giuliano Simeone", "Nico Paz", "Nicolás Otamendi", "Alexis Mac Allister", "José Manuel López", "Lautaro Martínez", "Emiliano Martínez", "Enzo Fernández", "Facundo Medina", "Nahuel Molina"], "النمسا": ["Alexander Schlager", "David Affengruber", "Kevin Danso", "Xaver Schlager", "Stefan Posch", "Nicolas Seiwald", "Marko Arnautović", "David Alaba", "Marcel Sabitzer", "Florian Grillitsch", "Michael Gregoritsch", "Florian Wiegele", "Patrick Pentz", "Saša Kalajdžić", "Philipp Lienhart", "Phillipp Mwene", "Carney Chukwuemeka", "Romano Schmid", "Christoph Baumgartner", "Konrad Laimer", "Patrick Wimmer", "Alexander Prass", "Marco Friedl", "Paul Wanner", "Michael Svoboda", "Alessandro Schöpf"], "الجزائر": ["Luca Zidane", "Oussama Benbot", "Melvin Mastil", "Aïssa Mandi", "Ramy Bensebaini", "Mohamed Amine Tougai", "Rayan Aït-Nouri", "Jaouen Hadjam", "Rafik Belghali", "Zineddine Belaïd", "Achref Abada", "Samir Chergui", "Nabil Bentaleb", "Ramiz Zerrouki", "Hicham Boudaoui", "Farès Chaïbi", "Houssem Aouar", "Ibrahim Maza", "Yacine Titraoui", "Riyad Mahrez", "Mohamed Amoura", "Amine Gouiri", "Anis Hadj Moussa", "Adil Boulbina", "Nadhir Benbouali", "Farès Ghedjemis"], "الأردن": ["Yazeed Abulaila", "Abdallah Al-Fakhouri", "Nour Bani Attiah", "Ihsan Haddad", "Yazan Al-Arab", "Abdallah Nasib", "Saed Al-Rosan", "Husam Abu Dahab", "Mo Abualnadi", "Salim Obaid", "Anas Badawi", "Rajaei Ayed", "Noor Al-Rawabdeh", "Ibrahim Sadeh", "Mohammad Abu Hashish", "Nizar Al-Rashdan", "Mohannad Abu Taha", "Amer Jamous", "Mohammad Al-Dawoud", "Musa Al-Taamari", "Mahmoud Al-Mardi", "Ali Olwan", "Mohammad Abu Zrayq", "Odeh Al-Fakhouri", "Ibrahim Sabra", "Ali Azaizeh"], "البرتغال": ["Diogo Costa", "José Sá", "Rui Silva", "Rúben Dias", "João Cancelo", "Diogo Dalot", "Nuno Mendes", "Nélson Semedo", "Matheus Nunes", "Gonçalo Inacio", "Renato Veiga", "Tomás Araújo", "Bruno Fernandes", "Bernardo Silva", "Vitinha", "João Neves", "Rúben Neves", "Samú Costa", "Cristiano Ronaldo", "Rafael Leão", "João Félix", "Gonçalo Ramos", "Pedro Neto", "Francisco Conceição", "Gonçalo Guedes", "Francisco Trincão"], "كولومبيا": ["David Ospina", "Camilo Vargas", "Álvaro Montero", "Davinson Sánchez", "Santiago Arias", "Yerry Mina", "Daniel Muñoz", "Johan Mojica", "Jhon Lucumí", "Deiver Machado", "Willer Ditta", "James Rodríguez", "Jefferson Lerma", "Juan Fernando Quintero", "Jhon Arias", "Richard Ríos", "Kevin Castaño", "Jorge Carrascal", "Jaminton Campaz", "Juan Portilla", "Gustavo Puerta", "Luis Díaz", "Jhon Córdoba", "Luis Suárez", "Cucho Hernández", "Andrés Gómez"], "أوزبكستان": ["Utkir Yusupov", "Abduvohid Nematov", "Botirali Ergashev", "Rustam Ashurmatov", "Farrukh Sayfiev", "Khojiakbar Alijonov", "Sherzod Nasrullaev", "Umar Eshmurodov", "Abdukodir Khusanov", "Abdulla Abdullaev", "Bekhruz Karimov", "Jakhongir Urozov", "Avazbek Ulmasaliev", "Otabek Shukurov", "Jaloliddin Masharipov", "Odiljon Hamrobekov", "Oston Urunov", "Jamshid Iskanderov", "Dostonbek Khamdamov", "Abbosbek Fayzullaev", "Akmal Mozgovoy", "Azizjon Ganiev", "Sherzod Esanov", "Eldor Shomurodov", "Igor Sergeev", "Azizbek Amonov"], "الكونغو الديمقراطية": ["Lionel Mpasi", "Timothy Fayulu", "Matthieu Epolo", "Chancel Mbemba", "Arthur Masuaku", "Gédéon Kalulu", "Joris Kayembe", "Dylan Batubinsika", "Axel Tuanzebe", "Aaron Wan-Bissaka", "Steve Kapuadi", "Samuel Moutoussamy", "Edo Kayembe", "Charles Pickel", "Gaël Kakuta", "Noah Sadiki", "Aaron Tshibola", "Ngal'ayel Mukau", "Brian Cipenga", "Cédric Bakambu", "Meschak Elia", "Théo Bongonda", "Fiston Mayele", "Yoane Wissa", "Nathanaël Mbuku", "Simon Banza"], "إنجلترا": ["Dean Henderson", "Jordan Pickford", "James Trafford", "Dan Burn", "Marc Guehi", "Reece James", "Ezri Konsa", "Tino Livramento", "Nico O'Reilly", "Jarell Quansah", "Djed Spence", "John Stones", "Elliot Anderson", "Jude Bellingham", "Eberechi Eze", "Jordan Henderson", "Kobbie Mainoo", "Declan Rice", "Morgan Rogers", "Anthony Gordon", "Harry Kane", "Noni Madueke", "Marcus Rashford", "Bukayo Saka", "Ivan Toney", "Ollie Watkins"], "كرواتيا": ["Dominik Livaković", "Dominik Kotarski", "Ivor Pandur", "Joško Gvardiol", "Duje Caleta-Car", "Josip Sutalo", "Josip Stanisic", "Marin Pongracic", "Martin Erlic", "Luka Vuskovic", "Luka Modric", "Mateo Kovacic", "Mario Pasalic", "Nikola Vlasic", "Luka Sucic", "Martin Baturina", "Kristijan Jakic", "Petar Sucic", "Nikola Moro", "Toni Furk", "Ivan Perisic", "Andrej Kramaric", "Ante Budemir", "Marco Pasalic", "Petar Musa", "Igor Matanovic"], "بنما": ["Orlando Mosquera", "Luis Mejía", "César Samudio", "César Blackman", "Jorge Gutiérrez", "Amir Murillo", "Fidel Escobar", "Andrés Andrade", "Edgardo Fariña", "José Córdoba", "Éric Davis", "Jiovany Ramos", "Roderick Miller", "Aníbal Godoy", "Adalberto Carrasquilla", "Carlos Harvey", "Cristian Martínez", "José Luis Rodríguez", "César Yanis", "Yoel Bárcenas", "Alberto Quintero", "Azarias Londoño", "Ismael Díaz", "Cecilio Waterman", "José Fajardo", "Tomás Rodríguez"], "غانا": ["Benjamin Asare", "Lawrence Ati-Zigi", "Joseph Anang", "Baba Abdul Rahman", "Gideon Mensah", "Marvin Senaya", "Alidu Seidu", "Abdul Mumin", "Jerome Opoku", "Jonas Adjetey", "Kojo Peprah Oppong", "Alexander Djiku", "Elisha Owusu", "Thomas Partey", "Kwasi Sibo", "Augustine Boakye", "Caleb Yirenkyi", "Abdul Fatawu", "Kamaldeen Sulemana", "Christopher Bonsu Baah", "Ernest Nuamah", "Antoine Semenyo", "Brandon Thomas-Asante", "Prince Kwabena Adu", "Iñaki Williams", "Jordan Ayew"]};
 
-const ROUNDS = {
-  r32: { label: "دور الـ32", count: 16, pts: {result:2, winner:2, player:5} },
-  r16: { label: "دور الـ16", count: 8,  pts: {result:2, winner:2, matchup:4, player:5} },
-  qf:  { label: "ربع النهائي", count: 4, pts: {result:4, winner:4, matchup:8, player:5} },
-  sf:  { label: "نصف النهائي", count: 2, pts: {result:8, winner:8, matchup:16, player:5} },
-  tp:  { label: "الثالث والرابع", count: 1, pts: {result:8, winner:8, matchup:16, player:5} },
-  f:   { label: "النهائي", count: 1, pts: {result:16, winner:16, matchup:32, player:5} },
+const BRACKET = {
+  r32:[
+    {num:73,from:"المتصدر أ vs وصيف ب"},
+    {num:74,from:"المتصدر ج vs وصيف د"},
+    {num:75,from:"المتصدر هـ vs وصيف و"},
+    {num:76,from:"المتصدر ز vs وصيف ح"},
+    {num:77,from:"المتصدر ط vs وصيف ي"},
+    {num:78,from:"المتصدر ك vs وصيف ل"},
+    {num:79,from:"وصيف أ vs المتصدر ب"},
+    {num:80,from:"وصيف ج vs المتصدر د"},
+    {num:81,from:"وصيف هـ vs المتصدر و"},
+    {num:82,from:"وصيف ز vs المتصدر ح"},
+    {num:83,from:"وصيف ط vs المتصدر ي"},
+    {num:84,from:"وصيف ك vs المتصدر ل"},
+    {num:85,from:"ثالث المجموعات (أ/ب/ج/د)"},
+    {num:86,from:"ثالث المجموعات (هـ/و/ز/ح)"},
+    {num:87,from:"ثالث المجموعات (ط/ي/ك/ل)"},
+    {num:88,from:"ثالث المجموعات (المتبقون)"},
+  ],
+  r16:[
+    {num:89, next1:"w73",next2:"w74"},
+    {num:90, next1:"w75",next2:"w76"},
+    {num:91, next1:"w77",next2:"w78"},
+    {num:92, next1:"w79",next2:"w80"},
+    {num:93, next1:"w81",next2:"w82"},
+    {num:94, next1:"w83",next2:"w84"},
+    {num:95, next1:"w85",next2:"w86"},
+    {num:96, next1:"w87",next2:"w88"},
+  ],
+  qf:[
+    {num:97, next1:"w89",next2:"w90"},
+    {num:98, next1:"w91",next2:"w92"},
+    {num:99, next1:"w93",next2:"w94"},
+    {num:100,next1:"w95",next2:"w96"},
+  ],
+  sf:[
+    {num:101,next1:"w97",next2:"w98"},
+    {num:102,next1:"w99",next2:"w100"},
+  ],
+  tp:[{num:103,next1:"l101",next2:"l102"}],
+  f: [{num:104,next1:"w101",next2:"w102"}],
 };
 
-const PLAYERS_BY_ROUND = {};
-
-function teamsOptions(selected) {
-  return '<option value="">-- اختر المنتخب --</option>' +
-    TEAMS.map(t => `<option value="${t}" ${t===selected?'selected':''}>${t}</option>`).join('');
-}
-
-function updatePlayerList(id) {
-  const t1 = document.getElementById('t1_'+id)?.value || '';
-  const t2 = document.getElementById('t2_'+id)?.value || '';
-  const sel = document.getElementById('p_'+id);
-  const wsel = document.getElementById('w_'+id);
-  if (!sel) return;
-  const players = [
-    ...(SQUAD[t1]||[]).map(p => `<option value="${p} (${t1})">${p} (${t1})</option>`),
-    ...(SQUAD[t2]||[]).map(p => `<option value="${p} (${t2})">${p} (${t2})</option>`)
-  ];
-  sel.innerHTML = '<option value="">-- أفضل لاعب (اختياري) --</option>' + players.join('');
-  if (wsel) {
-    wsel.innerHTML = '<option value="">-- الفائز المتوقع --</option>' +
-      (t1 ? `<option value="${t1}">${t1}</option>` : '') +
-      (t2 ? `<option value="${t2}">${t2}</option>` : '');
+// Map each match to which next match it feeds
+const FEEDS = {};
+Object.values(BRACKET).flat().forEach(m => {
+  if(m.next1) {
+    if(!FEEDS[m.next1.slice(1)]) FEEDS[m.next1.slice(1)] = [];
+    FEEDS[m.next1.slice(1)].push({targetMatch:m.num, slot:'t1', type:m.next1.slice(0,1)});
   }
+  if(m.next2) {
+    if(!FEEDS[m.next2.slice(1)]) FEEDS[m.next2.slice(1)] = [];
+    FEEDS[m.next2.slice(1)].push({targetMatch:m.num, slot:'t2', type:m.next2.slice(0,1)});
+  }
+});
+
+function teamsOpts(sel=""){
+  return '<option value="">-- اختر المنتخب --</option>' +
+    TEAMS.map(t=>`<option value="${t}"${t===sel?" selected":""}>${t}</option>`).join('');
+}
+function playersOpts(t1,t2,sel=""){
+  const p1=(SQUAD[t1]||[]).map(p=>`<option value="${p} (${t1})"${p+" ("+t1+")"===sel?" selected":""}>${p} (${t1})</option>`);
+  const p2=(SQUAD[t2]||[]).map(p=>`<option value="${p} (${t2})"${p+" ("+t2+")"===sel?" selected":""}>${p} (${t2})</option>`);
+  return '<option value="">-- أفضل لاعب --</option>'+p1.join('')+p2.join('');
 }
 
-function makeMatchCard(round, idx, label) {
-  const id = round + '_' + idx;
-  return `
-  <div class="match-card" id="card_${id}">
-    <div class="match-header">${label}</div>
-    <div class="match-teams">
-      <select id="t1_${id}" onchange="updatePlayerList('${id}')">
-        ${teamsOptions('')}
-      </select>
-      <div class="score-inputs">
-        <input type="number" id="g1_${id}" min="0" max="20" placeholder="0">
+function makeCard(num, fromLabel, isAuto) {
+  const id = "m"+num;
+  return `<div class="match-card" id="card_${id}">
+    <div class="match-num">م${num}${isAuto?' <span class="auto-tag">تلقائي</span>':''}</div>
+    ${fromLabel?`<div class="match-from">${fromLabel}</div>`:''}
+    <div class="match-row">
+      <select id="t1_${id}" onchange="onTeamChange('${id}')">${teamsOpts()}</select>
+      <div class="score-wrap">
+        <input type="number" id="g1_${id}" min="0" max="30" placeholder="0" onchange="onScoreChange('${id}')">
         <span class="score-sep">-</span>
-        <input type="number" id="g2_${id}" min="0" max="20" placeholder="0">
+        <input type="number" id="g2_${id}" min="0" max="30" placeholder="0" onchange="onScoreChange('${id}')">
       </div>
-      <select id="t2_${id}" onchange="updatePlayerList('${id}')">
-        ${teamsOptions('')}
-      </select>
+      <select id="t2_${id}" onchange="onTeamChange('${id}')">${teamsOpts()}</select>
     </div>
     <div class="match-winner">
-      <select id="w_${id}">
-        <option value="">-- الفائز المتوقع --</option>
+      <select id="w_${id}" onchange="propagate('${id}')">
+        <option value="">-- الفائز (ركلات ترجيح إن لزم) --</option>
       </select>
     </div>
     <div class="match-player">
-      <select id="p_${id}">
-        <option value="">-- أفضل لاعب (اختياري) --</option>
-      </select>
+      <select id="p_${id}"><option value="">-- أفضل لاعب --</option></select>
     </div>
   </div>`;
 }
 
-// Build all match cards
-function buildMatches() {
-  // R32
-  let r32html = '';
-  for (let i=1;i<=16;i++) r32html += makeMatchCard('r32', i, 'مباراة ' + i);
-  document.getElementById('r32-matches').innerHTML = r32html;
-
-  // R16
-  let r16html = '';
-  for (let i=1;i<=8;i++) r16html += makeMatchCard('r16', i, 'مباراة ' + i);
-  document.getElementById('r16-matches').innerHTML = r16html;
-
-  // QF
-  let qfhtml = '';
-  for (let i=1;i<=4;i++) qfhtml += makeMatchCard('qf', i, 'مباراة ' + i);
-  document.getElementById('qf-matches').innerHTML = qfhtml;
-
-  // SF + TP + Final
-  let sfhtml = `
-    <div class="stage-title">نصف النهائي</div>
-    ${makeMatchCard('sf', 1, 'نصف النهائي 1')}
-    ${makeMatchCard('sf', 2, 'نصف النهائي 2')}
-    <div class="stage-title">مباراة الثالث والرابع</div>
-    ${makeMatchCard('tp', 1, 'الثالث والرابع')}
-    <div class="stage-title">النهائي 🏆</div>
-    ${makeMatchCard('f', 1, 'النهائي')}
-  `;
-  document.getElementById('sf-matches').innerHTML = sfhtml;
-
-  // Team dropdowns handle updates via onchange
+function onTeamChange(id) {
+  const t1=document.getElementById('t1_'+id)?.value||'';
+  const t2=document.getElementById('t2_'+id)?.value||'';
+  const wsel=document.getElementById('w_'+id);
+  const psel=document.getElementById('p_'+id);
+  if(wsel){
+    const cur=wsel.value;
+    wsel.innerHTML=`<option value="">-- الفائز --</option>
+      ${t1?`<option value="${t1}"${cur===t1?" selected":""}>${t1}</option>`:''}
+      ${t2?`<option value="${t2}"${cur===t2?" selected":""}>${t2}</option>`:''}`;
+  }
+  if(psel){const cur=psel.value;psel.innerHTML=playersOpts(t1,t2,cur);}
 }
 
-
-
-function getMatchData(round, count) {
-  const matches = [];
-  for (let i=1;i<=count;i++) {
-    const id = round + '_' + i;
-    matches.push({
-      round, num: i,
-      team1:  document.getElementById('t1_'+id)?.value || '',
-      team2:  document.getElementById('t2_'+id)?.value || '',
-      g1:     document.getElementById('g1_'+id)?.value || '',
-      g2:     document.getElementById('g2_'+id)?.value || '',
-      winner: document.getElementById('w_'+id)?.value  || '',
-      player: document.getElementById('p_'+id)?.value  || '',
-    });
+function onScoreChange(id) {
+  const t1=document.getElementById('t1_'+id)?.value||'';
+  const t2=document.getElementById('t2_'+id)?.value||'';
+  const g1=parseInt(document.getElementById('g1_'+id)?.value);
+  const g2=parseInt(document.getElementById('g2_'+id)?.value);
+  const wsel=document.getElementById('w_'+id);
+  if(!isNaN(g1)&&!isNaN(g2)&&g1!==g2&&wsel) {
+    wsel.value = g1>g2?t1:t2;
   }
-  return matches;
+  propagate(id);
+}
+
+function propagate(id) {
+  const num = id.replace('m','');
+  const t1=document.getElementById('t1_'+id)?.value||'';
+  const t2=document.getElementById('t2_'+id)?.value||'';
+  const winner=document.getElementById('w_'+id)?.value||'';
+  const loser=winner===t1?t2:winner===t2?t1:'';
+
+  const feeds = FEEDS[num]||[];
+  feeds.forEach(f => {
+    const tid='m'+f.targetMatch;
+    const tsel=document.getElementById(f.slot+'_'+tid);
+    if(!tsel) return;
+    const val = f.type==='w'?winner:f.type==='l'?loser:'';
+    if(val) { tsel.value=val; onTeamChange(tid); propagate(tid); }
+  });
+}
+
+function buildAll() {
+  document.getElementById('r32-matches').innerHTML =
+    BRACKET.r32.map(m=>makeCard(m.num,m.from,false)).join('');
+
+  document.getElementById('r16-matches').innerHTML =
+    BRACKET.r16.map(m=>makeCard(m.num,
+      `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+
+  document.getElementById('qf-matches').innerHTML =
+    BRACKET.qf.map(m=>makeCard(m.num,
+      `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+
+  let sf=`<div class="stage-title">نصف النهائي</div>`;
+  sf+=BRACKET.sf.map(m=>makeCard(m.num,
+    `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+  sf+=`<div class="stage-title">مباراة الثالث والرابع</div>`;
+  sf+=BRACKET.tp.map(m=>makeCard(m.num,
+    `خاسر م${m.next1.slice(1)} vs خاسر م${m.next2.slice(1)}`,true)).join('');
+  sf+=`<div class="stage-title">النهائي 🏆</div>`;
+  sf+=BRACKET.f.map(m=>makeCard(m.num,
+    `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+  document.getElementById('sf-matches').innerHTML=sf;
 }
 
 function getAllMatches() {
-  return [
-    ...getMatchData('r32', 16),
-    ...getMatchData('r16', 8),
-    ...getMatchData('qf', 4),
-    ...getMatchData('sf', 2),
-    ...getMatchData('tp', 1),
-    ...getMatchData('f', 1),
-  ];
-}
-
-function goTo(page) {
-  if (page === 2) {
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    if (!name) { alert('الرجاء إدخال اسمك'); return; }
-    if (!email || !email.includes('@')) { alert('الرجاء إدخال إيميل صحيح'); return; }
-  }
-  if (page === 6) buildReview();
-
-  for (let i=1;i<=7;i++) {
-    document.getElementById('page'+i)?.classList.remove('active');
-  }
-  document.getElementById('page'+page)?.classList.add('active');
-
-  const steps = ['st1','st2','st3','st4','st5','st6'];
-  steps.forEach((id, idx) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.className = 'step' + (idx+1 < page ? ' done' : idx+1 === page ? ' active' : '');
+  const all=[];
+  const stageMap={r32:'r32',r16:'r16',qf:'qf',sf:'sf',tp:'tp',f:'f'};
+  Object.entries(BRACKET).forEach(([stage,matches])=>{
+    matches.forEach(m=>{
+      const id='m'+m.num;
+      all.push({
+        round:stage,num:m.num,
+        team1:document.getElementById('t1_'+id)?.value||'',
+        team2:document.getElementById('t2_'+id)?.value||'',
+        g1:document.getElementById('g1_'+id)?.value||'',
+        g2:document.getElementById('g2_'+id)?.value||'',
+        winner:document.getElementById('w_'+id)?.value||'',
+        player:document.getElementById('p_'+id)?.value||'',
+      });
+    });
   });
-
-  window.scrollTo(0, 0);
+  return all;
 }
 
-function buildReview() {
-  const matches = getAllMatches();
-  const roundLabels = {r32:'دور الـ32', r16:'دور الـ16', qf:'ربع النهائي', sf:'نصف النهائي', tp:'الثالث والرابع', f:'النهائي'};
-  let html = '';
-  let lastRound = '';
+function goTo(page){
+  if(page===2){
+    const n=document.getElementById('name').value.trim();
+    const e=document.getElementById('email').value.trim();
+    if(!n){alert('الرجاء إدخال اسمك');return;}
+    if(!e||!e.includes('@')){alert('الرجاء إدخال إيميل صحيح');return;}
+  }
+  if(page===6)buildReview();
+  for(let i=1;i<=7;i++)document.getElementById('page'+i)?.classList.remove('active');
+  document.getElementById('page'+page)?.classList.add('active');
+  ['st1','st2','st3','st4','st5','st6'].forEach((id,idx)=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.className='step'+(idx+1<page?' done':idx+1===page?' active':'');
+  });
+  window.scrollTo(0,0);
+}
 
-  matches.forEach(m => {
-    if (m.round !== lastRound) {
-      html += `<div class="stage-title">${roundLabels[m.round]}</div>`;
-      lastRound = m.round;
-    }
-    if (!m.team1 && !m.team2) return;
-    html += `<div style="padding:6px 0;border-bottom:1px solid #1a3320;font-size:13px">
-      <span style="color:var(--white)">${m.team1||'؟'} ${m.g1||'؟'} - ${m.g2||'؟'} ${m.team2||'؟'}</span>
-      ${m.winner ? `<span style="color:var(--gold);margin-right:8px">| فائز: ${m.winner}</span>` : ''}
-      ${m.player ? `<span style="color:var(--green-light);margin-right:8px">| ${m.player}</span>` : ''}
+function buildReview(){
+  const matches=getAllMatches();
+  const SL={r32:"دور الـ32",r16:"دور الـ16",qf:"ربع النهائي",sf:"نصف النهائي",tp:"الثالث والرابع",f:"النهائي"};
+  let html='',last='';
+  matches.forEach(m=>{
+    if(!m.team1&&!m.team2)return;
+    if(m.round!==last){html+=`<div class="stage-title">${SL[m.round]}</div>`;last=m.round;}
+    html+=`<div class="review-match">
+      <span style="color:var(--gold)">م${m.num}</span>
+      <span style="margin-right:6px">${m.team1||'؟'} ${m.g1||'؟'}-${m.g2||'؟'} ${m.team2||'؟'}</span>
+      ${m.winner?`<span style="color:var(--gold)">| فائز: ${m.winner}</span>`:''}
+      ${m.player?`<span style="color:var(--green-light)">| ${m.player}</span>`:''}
     </div>`;
   });
-
-  document.getElementById('review-content').innerHTML = html || '<p style="color:var(--muted)">لم تُدخل أي توقعات</p>';
+  document.getElementById('review-content').innerHTML=html||'<p style="color:var(--muted)">لم تُدخل أي توقعات</p>';
 }
 
-function submitAll() {
-  const name  = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const matches = getAllMatches();
-
-  const btn = document.getElementById('submit-btn');
-  btn.textContent = '⏳ جاري الحفظ...';
-  btn.disabled = true;
-
-  const payload = { name, email, matches: JSON.stringify(matches), type: 'knockout' };
-
-  fetch(APPS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  })
-  .then(() => {
-    document.getElementById('success-msg').textContent = 'تم حفظ توقعات ' + name + ' بنجاح!';
+function submitAll(){
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const btn=document.getElementById('submit-btn');
+  btn.textContent='⏳ جاري الحفظ...';btn.disabled=true;
+  fetch(APPS_URL,{method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({name,email,matches:JSON.stringify(getAllMatches()),type:'knockout'})
+  }).then(()=>{
+    document.getElementById('success-msg').textContent='تم حفظ توقعات '+name+' بنجاح!';
     goTo(7);
-  })
-  .catch(() => {
-    alert('حدث خطأ. تأكد من الإنترنت وحاول مجدداً.');
-    btn.textContent = '✅ تأكيد وإرسال التوقعات';
-    btn.disabled = false;
+  }).catch(()=>{
+    alert('حدث خطأ. حاول مجدداً.');
+    btn.textContent='✅ تأكيد وإرسال';btn.disabled=false;
   });
 }
 
-function resetAll() {
-  document.getElementById('name').value = '';
-  document.getElementById('email').value = '';
-  buildMatches();
-  goTo(1);
+function resetAll(){
+  document.getElementById('name').value='';
+  document.getElementById('email').value='';
+  buildAll();goTo(1);
 }
 
-buildMatches();
+buildAll();
 </script>
 </body>
 </html>
