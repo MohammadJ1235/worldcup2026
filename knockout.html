@@ -326,7 +326,20 @@ function goTo(page){
     const el=document.getElementById(id);if(!el)return;
     el.className='step'+(idx+1<page?' done':idx+1===page?' active':'');
   });
+  // Re-propagate all R32 winners when moving to R16+
+  if(page>=3) repropagateAll();
   window.scrollTo(0,0);
+}
+
+function repropagateAll(){
+  // Propagate R32 winners to R16
+  BRACKET.r32.forEach(m=>{ propagate('m'+m.num); });
+  // Then R16 to QF
+  BRACKET.r16.forEach(m=>{ propagate('m'+m.num); });
+  // Then QF to SF
+  BRACKET.qf.forEach(m=>{ propagate('m'+m.num); });
+  // Then SF to Final & TP
+  BRACKET.sf.forEach(m=>{ propagate('m'+m.num); });
 }
 
 function buildReview(){
