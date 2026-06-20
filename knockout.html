@@ -7,125 +7,284 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --green:#0a3d1f;--green-mid:#1a6b3a;--green-light:#2d9e58;
-  --gold:#c9a227;--gold-light:#f0c84a;
-  --dark:#0d1f12;--white:#f8f9f4;--muted:#5a7a60;
-  --card:#132a18;--border:#2d5236;
+  --navy:#0a1628;
+  --navy-mid:#0e2040;
+  --navy-light:#1a3a6b;
+  --blue:#1e5cb3;
+  --blue-light:#2d7dd2;
+  --gold:#d4a017;
+  --gold-light:#f0c040;
+  --gold-pale:#fef3c7;
+  --white:#f0f4ff;
+  --muted:#6b85b0;
+  --card:#0d1e3d;
+  --border:#1e3a6b;
+  --input:#091426;
 }
-body{font-family:'Segoe UI',Arial,sans-serif;background:var(--dark);color:var(--white);direction:rtl;min-height:100vh}
-.hero{background:linear-gradient(160deg,#0a3d1f,#0d1f12);padding:2rem 1rem 1.5rem;text-align:center;border-bottom:2px solid var(--gold)}
-.hero h1{font-size:clamp(1.4rem,4vw,2.2rem);font-weight:700}
-.hero h1 span{color:var(--gold-light)}
-.hero p{font-size:13px;color:var(--muted);margin-top:6px}
-.progress-bar{display:flex;background:#0f2415;border-bottom:1px solid var(--border);overflow-x:auto}
-.step{flex:1;min-width:80px;padding:12px 6px;text-align:center;font-size:11px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
-.step.active{color:var(--gold-light);border-bottom-color:var(--gold)}
-.step.done{color:var(--green-light);border-bottom-color:var(--green-light)}
-.page{display:none;max-width:720px;margin:0 auto;padding:1.25rem 1rem}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--navy);color:var(--white);direction:rtl;min-height:100vh}
+
+/* Hero */
+.hero{
+  background:linear-gradient(180deg,#0a1628 0%,#0e2040 100%);
+  padding:2.5rem 1rem 2rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  border-bottom:3px solid var(--gold);
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(30,92,179,0.3),transparent);
+  pointer-events:none;
+}
+.trophy{font-size:48px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 12px rgba(212,160,23,0.6))}
+.hero h1{font-size:clamp(1.5rem,5vw,2.5rem);font-weight:700;letter-spacing:-0.5px;position:relative}
+.hero h1 em{font-style:normal;color:var(--gold-light);font-weight:800}
+.hero p{font-size:13px;color:var(--muted);margin-top:6px;position:relative}
+.match-range{
+  display:inline-flex;gap:6px;margin-top:12px;position:relative;
+  background:rgba(30,92,179,0.2);border:1px solid var(--border);
+  border-radius:20px;padding:4px 14px;font-size:12px;color:var(--gold-light)
+}
+
+/* Progress */
+.progress-bar{display:flex;background:var(--navy-mid);border-bottom:1px solid var(--border);overflow-x:auto}
+.step{
+  flex:1;min-width:75px;padding:13px 6px;text-align:center;
+  font-size:11px;color:var(--muted);
+  border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.25s;
+  cursor:default;user-select:none
+}
+.step.active{color:var(--gold-light);border-bottom-color:var(--gold);font-weight:600}
+.step.done{color:#4ade80;border-bottom-color:#4ade80}
+.step-num{
+  display:block;width:22px;height:22px;border-radius:50%;
+  background:var(--navy-light);color:var(--muted);
+  font-size:11px;font-weight:700;line-height:22px;
+  text-align:center;margin:0 auto 3px
+}
+.step.active .step-num{background:var(--gold);color:var(--navy)}
+.step.done .step-num{background:#4ade80;color:var(--navy)}
+
+/* Pages */
+.page{display:none;max-width:740px;margin:0 auto;padding:1.5rem 1rem 3rem}
 .page.active{display:block}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
-.card-title{font-size:15px;font-weight:600;color:var(--gold-light);margin-bottom:4px}
-.card-desc{font-size:12px;color:var(--muted);margin-bottom:1rem}
-.form-row{margin-bottom:12px}
-.form-row label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
-input[type=text],input[type=email],input[type=number],select{
-  width:100%;padding:10px 12px;background:#0f2415;border:1px solid var(--border);
-  border-radius:8px;color:var(--white);font-size:13px;font-family:inherit
+
+/* Cards */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;padding:1.25rem;margin-bottom:1rem;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3)
 }
-input[type=number]{width:52px;text-align:center;padding:8px 4px;font-size:16px;font-weight:700}
-input:focus,select:focus{outline:none;border-color:var(--green-light)}
-.match-card{background:#0f2415;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px}
-.match-num{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:4px;text-align:center}
-.match-from{font-size:10px;color:var(--muted);text-align:center;margin-bottom:8px}
-.match-row{display:grid;grid-template-columns:1fr 80px 1fr;gap:8px;align-items:center;margin-bottom:8px}
-.score-wrap{display:flex;gap:4px;align-items:center;justify-content:center}
-.score-sep{color:var(--muted);font-size:16px}
-.match-winner,.match-player{margin-top:6px}
-.stage-title{font-size:14px;font-weight:600;color:var(--gold-light);margin:1rem 0 0.5rem;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.auto-tag{font-size:10px;background:#1a3d24;border:1px solid var(--green-mid);border-radius:4px;padding:1px 6px;color:var(--green-light);margin-right:4px}
-.btn{width:100%;padding:12px;background:var(--green-mid);border:none;border-radius:8px;color:var(--white);font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px}
-.btn:hover{background:var(--green-light)}
-.btn-back{background:#1a3320;margin-bottom:4px}
-.success-box{text-align:center;padding:2rem 1rem}
-.success-icon{font-size:60px;margin-bottom:1rem}
-.success-title{font-size:22px;font-weight:700;color:var(--green-light);margin-bottom:8px}
-.success-msg{font-size:14px;color:var(--muted);margin-bottom:1.5rem}
-.review-match{padding:6px 0;border-bottom:1px solid #1a3320;font-size:12px}
-@media(max-width:500px){
-  .match-row{grid-template-columns:1fr 70px 1fr}
-  input[type=number]{width:44px;font-size:14px}
+.card-title{
+  font-size:15px;font-weight:700;color:var(--gold-light);
+  margin-bottom:4px;display:flex;align-items:center;gap:8px
+}
+.card-title::before{content:"";display:block;width:3px;height:16px;background:var(--gold);border-radius:2px}
+.card-desc{font-size:12px;color:var(--muted);margin-bottom:1rem;padding-right:11px}
+
+/* Form elements */
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:500}
+input[type=text],input[type=email],select{
+  width:100%;padding:11px 13px;
+  background:var(--input);border:1.5px solid var(--border);
+  border-radius:9px;color:var(--white);font-size:13px;font-family:inherit;
+  transition:border-color 0.2s
+}
+input[type=text]:focus,input[type=email]:focus,select:focus{
+  outline:none;border-color:var(--blue-light);
+  box-shadow:0 0 0 3px rgba(45,125,210,0.15)
+}
+input[type=number]{
+  width:54px;text-align:center;padding:9px 4px;
+  font-size:18px;font-weight:700;
+  background:var(--input);border:1.5px solid var(--border);
+  border-radius:9px;color:var(--gold-light);font-family:inherit;
+  transition:border-color 0.2s
+}
+input[type=number]:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,160,23,0.2)}
+
+/* Match card */
+.match-card{
+  background:var(--input);border:1px solid var(--border);
+  border-radius:12px;padding:14px;margin-bottom:10px;
+  transition:border-color 0.2s
+}
+.match-card:hover{border-color:var(--blue)}
+.match-header{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-bottom:10px
+}
+.match-num-badge{
+  background:var(--gold);color:var(--navy);
+  font-size:11px;font-weight:800;
+  padding:2px 10px;border-radius:20px;letter-spacing:0.5px
+}
+.match-from-label{font-size:10px;color:var(--muted)}
+.auto-tag{
+  background:rgba(45,125,210,0.2);border:1px solid var(--blue);
+  color:#60a5fa;font-size:10px;font-weight:600;
+  padding:1px 7px;border-radius:10px
+}
+.match-row{
+  display:grid;grid-template-columns:1fr 80px 1fr;
+  gap:8px;align-items:center;margin-bottom:10px
+}
+.score-wrap{display:flex;gap:5px;align-items:center;justify-content:center}
+.score-sep{color:var(--muted);font-size:18px;font-weight:300}
+.sub-row{margin-top:8px}
+.sub-label{font-size:10px;color:var(--muted);margin-bottom:4px}
+
+/* Stage title */
+.stage-title{
+  font-size:13px;font-weight:700;color:var(--gold-light);
+  margin:1.25rem 0 0.6rem;
+  display:flex;align-items:center;gap:8px
+}
+.stage-title::after{content:"";flex:1;height:1px;background:var(--border)}
+
+/* Buttons */
+.btn{
+  width:100%;padding:13px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-light));
+  border:none;border-radius:10px;
+  color:var(--white);font-size:15px;font-weight:700;
+  cursor:pointer;font-family:inherit;margin-top:10px;
+  transition:opacity 0.2s,transform 0.1s;
+  letter-spacing:0.3px
+}
+.btn:hover{opacity:0.9}
+.btn:active{transform:scale(0.98)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy)}
+.btn-back{
+  background:transparent;border:1.5px solid var(--border);
+  color:var(--muted);margin-bottom:6px
+}
+.btn-back:hover{border-color:var(--blue-light);color:var(--white)}
+
+/* Review */
+.review-stage{font-size:12px;font-weight:700;color:var(--gold-light);margin:10px 0 4px}
+.review-match{
+  padding:7px 10px;border-radius:8px;margin-bottom:4px;
+  font-size:12px;background:rgba(30,92,179,0.1);
+  border-right:2px solid var(--blue)
+}
+
+/* Success */
+.success-box{text-align:center;padding:3rem 1rem}
+.success-trophy{font-size:70px;margin-bottom:1rem;filter:drop-shadow(0 0 20px rgba(212,160,23,0.8))}
+.success-title{font-size:24px;font-weight:800;color:var(--gold-light);margin-bottom:8px}
+.success-msg{font-size:14px;color:var(--muted);margin-bottom:2rem;line-height:1.6}
+
+/* Mobile */
+@media(max-width:520px){
+  .match-row{grid-template-columns:1fr 72px 1fr}
+  input[type=number]{width:46px;font-size:16px}
+  .step{min-width:60px;padding:10px 4px}
 }
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <h1>توقعات <span>الأدوار الإقصائية</span></h1>
-  <p>كأس العالم 2026 — من م73 حتى م104</p>
+  <span class="trophy">🏆</span>
+  <h1>توقعات <em>الأدوار الإقصائية</em></h1>
+  <p>كأس العالم 2026 — كندا، المكسيك، أمريكا</p>
+  <div class="match-range">م73 — م104</div>
 </div>
 
 <div class="progress-bar">
-  <div class="step active" id="st1">1 معلوماتك</div>
-  <div class="step" id="st2">2 دور الـ32</div>
-  <div class="step" id="st3">3 دور الـ16</div>
-  <div class="step" id="st4">4 ربع النهائي</div>
-  <div class="step" id="st5">5 النصف والنهائي</div>
-  <div class="step" id="st6">6 تأكيد</div>
+  <div class="step active" id="st1"><span class="step-num">1</span>معلوماتك</div>
+  <div class="step" id="st2"><span class="step-num">2</span>دور الـ32</div>
+  <div class="step" id="st3"><span class="step-num">3</span>دور الـ16</div>
+  <div class="step" id="st4"><span class="step-num">4</span>ربع النهائي</div>
+  <div class="step" id="st5"><span class="step-num">5</span>نصف+نهائي</div>
+  <div class="step" id="st6"><span class="step-num">6</span>تأكيد</div>
 </div>
 
+<!-- Page 1 -->
 <div class="page active" id="page1">
   <div class="card">
     <div class="card-title">معلوماتك</div>
-    <div class="card-desc">أدخل اسمك وإيميلك</div>
-    <div class="form-row"><label>الاسم *</label><input type="text" id="name" placeholder="اسمك كما في الفورم الأول"></div>
-    <div class="form-row"><label>البريد الإلكتروني *</label><input type="email" id="email" placeholder="example@email.com" dir="ltr"></div>
+    <div class="card-desc">أدخل بياناتك — سيصلك ملخص توقعاتك على الإيميل</div>
+    <div class="form-row">
+      <label>الاسم الكامل *</label>
+      <input type="text" id="name" placeholder="اسمك كما في الفورم الأول">
+    </div>
+    <div class="form-row">
+      <label>البريد الإلكتروني *</label>
+      <input type="email" id="email" placeholder="example@email.com" dir="ltr">
+    </div>
   </div>
-  <button class="btn" onclick="goTo(2)">التالي ←</button>
+  <button class="btn btn-gold" onclick="goTo(2)">التالي ←</button>
 </div>
 
+<!-- Page 2: R32 -->
 <div class="page" id="page2">
-  <div class="card"><div class="card-title">دور الـ32 (م73 - م88)</div><div class="card-desc">اختر المنتخبين — الفائز ينتقل تلقائياً للدور التالي</div></div>
+  <div class="card">
+    <div class="card-title">دور الـ32</div>
+    <div class="card-desc">اختر المنتخبين وتوقع النتيجة — الفائز ينتقل تلقائياً للدور التالي</div>
+  </div>
   <div id="r32-matches"></div>
   <button class="btn btn-back" onclick="goTo(1)">→ رجوع</button>
-  <button class="btn" onclick="goTo(3)">التالي ←</button>
+  <button class="btn" onclick="goTo(3)">التالي — دور الـ16 ←</button>
 </div>
 
+<!-- Page 3: R16 -->
 <div class="page" id="page3">
-  <div class="card"><div class="card-title">دور الـ16 (م89 - م96)</div><div class="card-desc">يتعبأ تلقائياً من فائزي دور الـ32</div></div>
+  <div class="card">
+    <div class="card-title">دور الـ16</div>
+    <div class="card-desc">يتعبأ تلقائياً من فائزي دور الـ32 — يمكنك التعديل يدوياً</div>
+  </div>
   <div id="r16-matches"></div>
   <button class="btn btn-back" onclick="goTo(2)">→ رجوع</button>
-  <button class="btn" onclick="goTo(4)">التالي ←</button>
+  <button class="btn" onclick="goTo(4)">التالي — ربع النهائي ←</button>
 </div>
 
+<!-- Page 4: QF -->
 <div class="page" id="page4">
-  <div class="card"><div class="card-title">ربع النهائي (م97 - م100)</div><div class="card-desc">يتعبأ تلقائياً من فائزي دور الـ16</div></div>
+  <div class="card">
+    <div class="card-title">ربع النهائي</div>
+    <div class="card-desc">يتعبأ تلقائياً من فائزي دور الـ16</div>
+  </div>
   <div id="qf-matches"></div>
   <button class="btn btn-back" onclick="goTo(3)">→ رجوع</button>
-  <button class="btn" onclick="goTo(5)">التالي ←</button>
+  <button class="btn" onclick="goTo(5)">التالي — النصف والنهائي ←</button>
 </div>
 
+<!-- Page 5: SF+TP+F -->
 <div class="page" id="page5">
-  <div class="card"><div class="card-title">نصف النهائي والنهائي (م101 - م104)</div><div class="card-desc">يتعبأ تلقائياً من فائزي ربع النهائي</div></div>
+  <div class="card">
+    <div class="card-title">نصف النهائي والنهائي</div>
+    <div class="card-desc">يتعبأ تلقائياً من فائزي ربع النهائي</div>
+  </div>
   <div id="sf-matches"></div>
   <button class="btn btn-back" onclick="goTo(4)">→ رجوع</button>
   <button class="btn" onclick="goTo(6)">مراجعة التوقعات ←</button>
 </div>
 
+<!-- Page 6: Review -->
 <div class="page" id="page6">
   <div class="card">
     <div class="card-title">مراجعة وتأكيد</div>
+    <div class="card-desc">تأكد من توقعاتك قبل الإرسال النهائي</div>
     <div id="review-content"></div>
   </div>
   <button class="btn btn-back" onclick="goTo(5)">→ تعديل</button>
-  <button class="btn" id="submit-btn" onclick="submitAll()">✅ تأكيد وإرسال</button>
+  <button class="btn btn-gold" id="submit-btn" onclick="submitAll()">✅ تأكيد وإرسال التوقعات</button>
 </div>
 
+<!-- Page 7: Success -->
 <div class="page" id="page7">
   <div class="success-box">
-    <div class="success-icon">🏆</div>
+    <div class="success-trophy">🏆</div>
     <div class="success-title">تم تسجيل توقعاتك!</div>
-    <div class="success-msg" id="success-msg">سيصلك ملخص على إيميلك</div>
-    <button class="btn" onclick="resetAll()">توقعات مشارك جديد</button>
+    <div class="success-msg" id="success-msg">سيصلك ملخص كامل على بريدك الإلكتروني</div>
+    <button class="btn btn-gold" onclick="resetAll()">توقعات مشارك جديد</button>
   </div>
 </div>
 
@@ -177,55 +336,57 @@ const BRACKET = {
   f: [{num:104,next1:"w101",next2:"w102"}],
 };
 
-// Map each match to which next match it feeds
 const FEEDS = {};
-Object.values(BRACKET).flat().forEach(m => {
-  if(m.next1) {
-    if(!FEEDS[m.next1.slice(1)]) FEEDS[m.next1.slice(1)] = [];
-    FEEDS[m.next1.slice(1)].push({targetMatch:m.num, slot:'t1', type:m.next1.slice(0,1)});
-  }
-  if(m.next2) {
-    if(!FEEDS[m.next2.slice(1)]) FEEDS[m.next2.slice(1)] = [];
-    FEEDS[m.next2.slice(1)].push({targetMatch:m.num, slot:'t2', type:m.next2.slice(0,1)});
-  }
+Object.values(BRACKET).flat().forEach(m=>{
+  ['next1','next2'].forEach((k,idx)=>{
+    if(!m[k]) return;
+    const src = m[k].slice(1);
+    if(!FEEDS[src]) FEEDS[src]=[];
+    FEEDS[src].push({targetMatch:m.num,slot:idx===0?'t1':'t2',type:m[k].slice(0,1)});
+  });
 });
 
 function teamsOpts(sel=""){
-  return '<option value="">-- اختر المنتخب --</option>' +
+  return '<option value="">-- اختر المنتخب --</option>'+
     TEAMS.map(t=>`<option value="${t}"${t===sel?" selected":""}>${t}</option>`).join('');
 }
 function playersOpts(t1,t2,sel=""){
   const p1=(SQUAD[t1]||[]).map(p=>`<option value="${p} (${t1})"${p+" ("+t1+")"===sel?" selected":""}>${p} (${t1})</option>`);
   const p2=(SQUAD[t2]||[]).map(p=>`<option value="${p} (${t2})"${p+" ("+t2+")"===sel?" selected":""}>${p} (${t2})</option>`);
-  return '<option value="">-- أفضل لاعب --</option>'+p1.join('')+p2.join('');
+  return '<option value="">-- أفضل لاعب (اختياري) --</option>'+p1.join('')+p2.join('');
 }
 
-function makeCard(num, fromLabel, isAuto) {
-  const id = "m"+num;
+function makeCard(num,fromLabel,isAuto){
+  const id="m"+num;
   return `<div class="match-card" id="card_${id}">
-    <div class="match-num">م${num}${isAuto?' <span class="auto-tag">تلقائي</span>':''}</div>
-    ${fromLabel?`<div class="match-from">${fromLabel}</div>`:''}
+    <div class="match-header">
+      <span class="match-num-badge">م${num}</span>
+      ${isAuto?'<span class="auto-tag">تلقائي</span>':''}
+      ${fromLabel?`<span class="match-from-label">${fromLabel}</span>`:''}
+    </div>
     <div class="match-row">
       <select id="t1_${id}" onchange="onTeamChange('${id}')">${teamsOpts()}</select>
       <div class="score-wrap">
         <input type="number" id="g1_${id}" min="0" max="30" placeholder="0" onchange="onScoreChange('${id}')">
-        <span class="score-sep">-</span>
+        <span class="score-sep">–</span>
         <input type="number" id="g2_${id}" min="0" max="30" placeholder="0" onchange="onScoreChange('${id}')">
       </div>
       <select id="t2_${id}" onchange="onTeamChange('${id}')">${teamsOpts()}</select>
     </div>
-    <div class="match-winner">
+    <div class="sub-row">
+      <div class="sub-label">الفائز (ركلات ترجيح إن لزم)</div>
       <select id="w_${id}" onchange="propagate('${id}')">
-        <option value="">-- الفائز (ركلات ترجيح إن لزم) --</option>
+        <option value="">-- الفائز --</option>
       </select>
     </div>
-    <div class="match-player">
-      <select id="p_${id}"><option value="">-- أفضل لاعب --</option></select>
+    <div class="sub-row">
+      <div class="sub-label">أفضل لاعب</div>
+      <select id="p_${id}"><option value="">-- أفضل لاعب (اختياري) --</option></select>
     </div>
   </div>`;
 }
 
-function onTeamChange(id) {
+function onTeamChange(id){
   const t1=document.getElementById('t1_'+id)?.value||'';
   const t2=document.getElementById('t2_'+id)?.value||'';
   const wsel=document.getElementById('w_'+id);
@@ -239,67 +400,62 @@ function onTeamChange(id) {
   if(psel){const cur=psel.value;psel.innerHTML=playersOpts(t1,t2,cur);}
 }
 
-function onScoreChange(id) {
+function onScoreChange(id){
   const t1=document.getElementById('t1_'+id)?.value||'';
   const t2=document.getElementById('t2_'+id)?.value||'';
   const g1=parseInt(document.getElementById('g1_'+id)?.value);
   const g2=parseInt(document.getElementById('g2_'+id)?.value);
   const wsel=document.getElementById('w_'+id);
-  if(!isNaN(g1)&&!isNaN(g2)&&g1!==g2&&wsel) {
-    wsel.value = g1>g2?t1:t2;
+  if(!isNaN(g1)&&!isNaN(g2)&&g1!==g2&&wsel){
+    wsel.value=g1>g2?t1:t2;
   }
   propagate(id);
 }
 
-function propagate(id) {
-  const num = id.replace('m','');
+function propagate(id){
+  const num=id.replace('m','');
   const t1=document.getElementById('t1_'+id)?.value||'';
   const t2=document.getElementById('t2_'+id)?.value||'';
   const winner=document.getElementById('w_'+id)?.value||'';
   const loser=winner===t1?t2:winner===t2?t1:'';
-
-  const feeds = FEEDS[num]||[];
-  feeds.forEach(f => {
+  (FEEDS[num]||[]).forEach(f=>{
     const tid='m'+f.targetMatch;
     const tsel=document.getElementById(f.slot+'_'+tid);
     if(!tsel) return;
-    const val = f.type==='w'?winner:f.type==='l'?loser:'';
-    if(val) { tsel.value=val; onTeamChange(tid); propagate(tid); }
+    const val=f.type==='w'?winner:f.type==='l'?loser:'';
+    if(val){tsel.value=val;onTeamChange(tid);propagate(tid);}
   });
 }
 
-function buildAll() {
-  document.getElementById('r32-matches').innerHTML =
+function repropagateAll(){
+  BRACKET.r32.forEach(m=>propagate('m'+m.num));
+  BRACKET.r16.forEach(m=>propagate('m'+m.num));
+  BRACKET.qf.forEach(m=>propagate('m'+m.num));
+  BRACKET.sf.forEach(m=>propagate('m'+m.num));
+}
+
+function buildAll(){
+  document.getElementById('r32-matches').innerHTML=
     BRACKET.r32.map(m=>makeCard(m.num,m.from,false)).join('');
-
-  document.getElementById('r16-matches').innerHTML =
-    BRACKET.r16.map(m=>makeCard(m.num,
-      `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
-
-  document.getElementById('qf-matches').innerHTML =
-    BRACKET.qf.map(m=>makeCard(m.num,
-      `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
-
-  let sf=`<div class="stage-title">نصف النهائي</div>`;
-  sf+=BRACKET.sf.map(m=>makeCard(m.num,
-    `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
-  sf+=`<div class="stage-title">مباراة الثالث والرابع</div>`;
-  sf+=BRACKET.tp.map(m=>makeCard(m.num,
-    `خاسر م${m.next1.slice(1)} vs خاسر م${m.next2.slice(1)}`,true)).join('');
-  sf+=`<div class="stage-title">النهائي 🏆</div>`;
-  sf+=BRACKET.f.map(m=>makeCard(m.num,
-    `فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+  document.getElementById('r16-matches').innerHTML=
+    BRACKET.r16.map(m=>makeCard(m.num,`فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+  document.getElementById('qf-matches').innerHTML=
+    BRACKET.qf.map(m=>makeCard(m.num,`فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+  let sf='<div class="stage-title">نصف النهائي</div>';
+  sf+=BRACKET.sf.map(m=>makeCard(m.num,`فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
+  sf+='<div class="stage-title">مباراة الثالث والرابع</div>';
+  sf+=BRACKET.tp.map(m=>makeCard(m.num,`خاسر م${m.next1.slice(1)} vs خاسر م${m.next2.slice(1)}`,true)).join('');
+  sf+='<div class="stage-title">النهائي</div>';
+  sf+=BRACKET.f.map(m=>makeCard(m.num,`فائز م${m.next1.slice(1)} vs فائز م${m.next2.slice(1)}`,true)).join('');
   document.getElementById('sf-matches').innerHTML=sf;
 }
 
-function getAllMatches() {
+function getAllMatches(){
   const all=[];
-  const stageMap={r32:'r32',r16:'r16',qf:'qf',sf:'sf',tp:'tp',f:'f'};
   Object.entries(BRACKET).forEach(([stage,matches])=>{
     matches.forEach(m=>{
       const id='m'+m.num;
-      all.push({
-        round:stage,num:m.num,
+      all.push({round:stage,num:m.num,
         team1:document.getElementById('t1_'+id)?.value||'',
         team2:document.getElementById('t2_'+id)?.value||'',
         g1:document.getElementById('g1_'+id)?.value||'',
@@ -314,65 +470,50 @@ function getAllMatches() {
 
 function goTo(page){
   if(page===2){
-    const n=document.getElementById('name').value.trim();
-    const e=document.getElementById('email').value.trim();
-    if(!n){alert('الرجاء إدخال اسمك');return;}
-    if(!e||!e.includes('@')){alert('الرجاء إدخال إيميل صحيح');return;}
+    if(!document.getElementById('name').value.trim()){alert('الرجاء إدخال اسمك');return;}
+    if(!document.getElementById('email').value.includes('@')){alert('الرجاء إدخال إيميل صحيح');return;}
   }
-  if(page===6)buildReview();
-  for(let i=1;i<=7;i++)document.getElementById('page'+i)?.classList.remove('active');
+  if(page===6) buildReview();
+  for(let i=1;i<=7;i++) document.getElementById('page'+i)?.classList.remove('active');
   document.getElementById('page'+page)?.classList.add('active');
   ['st1','st2','st3','st4','st5','st6'].forEach((id,idx)=>{
     const el=document.getElementById(id);if(!el)return;
     el.className='step'+(idx+1<page?' done':idx+1===page?' active':'');
   });
-  // Re-propagate all R32 winners when moving to R16+
   if(page>=3) repropagateAll();
   window.scrollTo(0,0);
 }
 
-function repropagateAll(){
-  // Propagate R32 winners to R16
-  BRACKET.r32.forEach(m=>{ propagate('m'+m.num); });
-  // Then R16 to QF
-  BRACKET.r16.forEach(m=>{ propagate('m'+m.num); });
-  // Then QF to SF
-  BRACKET.qf.forEach(m=>{ propagate('m'+m.num); });
-  // Then SF to Final & TP
-  BRACKET.sf.forEach(m=>{ propagate('m'+m.num); });
-}
-
 function buildReview(){
-  const matches=getAllMatches();
   const SL={r32:"دور الـ32",r16:"دور الـ16",qf:"ربع النهائي",sf:"نصف النهائي",tp:"الثالث والرابع",f:"النهائي"};
   let html='',last='';
-  matches.forEach(m=>{
-    if(!m.team1&&!m.team2)return;
-    if(m.round!==last){html+=`<div class="stage-title">${SL[m.round]}</div>`;last=m.round;}
+  getAllMatches().forEach(m=>{
+    if(!m.team1&&!m.team2) return;
+    if(m.round!==last){html+=`<div class="review-stage">${SL[m.round]}</div>`;last=m.round;}
     html+=`<div class="review-match">
-      <span style="color:var(--gold)">م${m.num}</span>
-      <span style="margin-right:6px">${m.team1||'؟'} ${m.g1||'؟'}-${m.g2||'؟'} ${m.team2||'؟'}</span>
-      ${m.winner?`<span style="color:var(--gold)">| فائز: ${m.winner}</span>`:''}
-      ${m.player?`<span style="color:var(--green-light)">| ${m.player}</span>`:''}
+      <strong style="color:var(--gold-light)">م${m.num}</strong>
+      <span style="margin-right:8px">${m.team1||'؟'} ${m.g1||'?'} – ${m.g2||'?'} ${m.team2||'؟'}</span>
+      ${m.winner?`<span style="color:var(--gold)">| ${m.winner}</span>`:''}
+      ${m.player?`<span style="color:#60a5fa"> | ${m.player}</span>`:''}
     </div>`;
   });
-  document.getElementById('review-content').innerHTML=html||'<p style="color:var(--muted)">لم تُدخل أي توقعات</p>';
+  document.getElementById('review-content').innerHTML=html||'<p style="color:var(--muted);padding:1rem 0">لم تُدخل أي توقعات بعد</p>';
 }
 
 function submitAll(){
   const name=document.getElementById('name').value.trim();
   const email=document.getElementById('email').value.trim();
   const btn=document.getElementById('submit-btn');
-  btn.textContent='⏳ جاري الحفظ...';btn.disabled=true;
+  btn.textContent='جاري الحفظ...';btn.disabled=true;
   fetch(APPS_URL,{method:'POST',mode:'no-cors',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({name,email,matches:JSON.stringify(getAllMatches()),type:'knockout'})
   }).then(()=>{
-    document.getElementById('success-msg').textContent='تم حفظ توقعات '+name+' بنجاح!';
+    document.getElementById('success-msg').textContent='تم حفظ توقعات '+name+' — سيصلك الملخص على '+email;
     goTo(7);
   }).catch(()=>{
-    alert('حدث خطأ. حاول مجدداً.');
-    btn.textContent='✅ تأكيد وإرسال';btn.disabled=false;
+    alert('حدث خطأ، حاول مجدداً');
+    btn.textContent='✅ تأكيد وإرسال التوقعات';btn.disabled=false;
   });
 }
 
